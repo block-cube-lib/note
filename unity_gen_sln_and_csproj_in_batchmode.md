@@ -1,3 +1,8 @@
+---
+title: Unityのバッチモードでslnやcsprojを生成する
+date: 2022/12/13
+---
+
 # Unityのバッチモードでslnやcsprojを生成する
 ## Unity 2021.2まで
 ```sh

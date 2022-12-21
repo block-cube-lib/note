@@ -122,4 +122,3 @@ assert((!(bucket = FindBucket(key))) || !bucket->IsOccupied());
 bucket = FindBucket(key);
 if (bucket != NULL) assert(!bucket->IsOccupied());
 ```
-```

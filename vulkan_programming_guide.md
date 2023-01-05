@@ -54,3 +54,15 @@ vkResult vkCreateInstance(const VkInstanceCreateInfo*  pCreateInfo,
                           VkInstance*                  pInstance);
 ```
 で作成できる
+
+### Vulkan 物理デバイス
+```c
+vkEnumeratePhysicalDevices(VkInstance instance, uint32_t* pPhysicalDeviceCount, VkPhysicalDevice* pPhysicalDevices)
+```
+`pPhysicalDevices`に`nullptr`を渡すとpPhysicalDeviceCountに物理デバイスの数が入る。  
+その後`pPhysicalDevices`に有効な値を入れてもう一度呼び出すことで物理デバイスの取得ができる。
+[サンプル内のコード](https://github.com/KhronosGroup/Vulkan-Samples/blob/9198f24ddd3dab9dd131d525c54689b6ab6da835/framework/core/instance.cpp#L424-L444)
+
+### 物理デバイス メモリー
+
+### デバイス キュー

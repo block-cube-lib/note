@@ -3,8 +3,6 @@ title = "Vulkan"
 date = "2023/01/04"
 [extra]
 category = "memo"
-published_at = "2022/06/25"
-original_published_at = "2016/10/31"
 tags = ["Vulkan", "Graphics"]
 +++
 

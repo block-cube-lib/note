@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<head>
+  <title>
+    
+      ゲームエンジンアーキテクチャ 第3版 - blocks note
+    
+  </title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" type="text/css" href="https://block-cube-lib.github.io/note/style.css">
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700&family=Source+Code+Pro:ital,wght@0,400;0,500;0,700;1,400;1,500;1,700&display=swap" rel="stylesheet">
+</head>
+<body>
+  <header class="header">
+      <div class="top">
+        <a href="https:&#x2F;&#x2F;block-cube-lib.github.io&#x2F;note">blocks note</a>
+      </div>
+  </header>
+  <nav class="container">
+    <h2><a href="https:&#x2F;&#x2F;block-cube-lib.github.io&#x2F;note/categories">Categories</a></h2>
+    <ul>
+      <li><a href="https:&#x2F;&#x2F;block-cube-lib.github.io&#x2F;note/categories/book">Book</a></li>
+      <li><a href="https:&#x2F;&#x2F;block-cube-lib.github.io&#x2F;note/categories/video">Video</a></li>
+      <li><a href="https:&#x2F;&#x2F;block-cube-lib.github.io&#x2F;note/categories/conference">Conference</a></li>
+      <li><a href="https:&#x2F;&#x2F;block-cube-lib.github.io&#x2F;note/categories/memo">Memo</a></li>
+    </ul>
+    <h2><a href="https:&#x2F;&#x2F;block-cube-lib.github.io&#x2F;note/tags">Tags</a></h2>
+  </nav>
+  <main class="container">
+    
+
+<h1 class="title">
+  ゲームエンジンアーキテクチャ 第3版
+</h1>
+<section class="update_history">
+  <table>
+    <tr>
+      <td>
+  <span class = "date">2023&#x2F;08&#x2F;30 09:48</span>
+</td>
+      <td>作成</td>
+    </tr>
+    
+  </table>
+</section>
+<section class="published_at">
+  <table>
+    
+    
+  </table>
+</section>
+<div>
+  categories: 
+<span class = "categories">
+  
+  
+<span class = "categories-label"><a href="https://block-cube-lib.github.io/note/categories/book/">Book</a></span>
+
+  
+</span>
+
+</div>
+<div>
+  tags: 
+<span class = "tags">
+  
+  
+<span class = "tags-label"><a href="https://block-cube-lib.github.io/note/tags/gamedev/">GameDev</a></span>
+
+  
+</span>
+
+</div>
+<section class="links">
+  
+</section>
+<section class="page">
+  <aside>
+    
+<ul>
+   
+  <li><a href="#7-risosuguan-li">7 リソース管理</a></li>
+  <ul>
+     
+    <li><a href="#fei-tong-qi-huairuru-chu-li">非同期ファイル入出力</a></li>
+    <ul>
+      
+      <li><a href="#you-xian-shun-wei">優先順位</a></li>
+      <ul>
+        
+      </ul>
+      
+    </ul>
+    
+  </ul>
+   
+  <li><a href="#11-rendaringuenzin">11 レンダリングエンジン</a></li>
+  <ul>
+     
+    <li><a href="#4">4</a></li>
+    <ul>
+      
+      <li><a href="#5-ganmabu-zheng">5 ガンマ補正</a></li>
+      <ul>
+        
+      </ul>
+      
+    </ul>
+    
+  </ul>
+   
+  <li><a href="#14-odeio">14 オーディオ</a></li>
+  <ul>
+     
+    <li><a href="#6-gemugu-you-noodeioji-neng">6 ゲーム固有のオーディオ機能</a></li>
+    <ul>
+      
+    </ul>
+    
+  </ul>
+  
+</ul>
+
+  </aside>
+  <div class="page-content"><h1 id="7-risosuguan-li">7 リソース管理</h1>
+<h3 id="fei-tong-qi-huairuru-chu-li">非同期ファイル入出力</h3>
+<p>自力で書く必要がないときでもシステムAPIをラップしておけば移植性が高まる。</p>
+<h4 id="you-xian-shun-wei">優先順位</h4>
+<p>非同期入出力処理のあいだで優先度が異なってくる。<br />
+例えばテクスチャ読み込みよりもオーディオデータの次のバッファをロードするほうが明らかに優先度が高くなる。<br />
+優先度の高い入出力リクエストをデッドラインに間に合わせるように、優先度の低いリクエストを一時的に停止できる必要がある。</p>
+<h1 id="11-rendaringuenzin">11 レンダリングエンジン</h1>
+<h2 id="4">4</h2>
+<h3 id="5-ganmabu-zheng">5 ガンマ補正</h3>
+<p>CRTモニタは輝度値に対して非線形な応答を返す傾向にある。人間の目には非線形な変化に見える。
+それを補正するためにガンマ補正を行う。<br />
+典型的なCRTディスプレイのガンマ応答曲線は2.2。なので1/2.1/2.2をかけることで補正できる。<br />
+ゲームエンジンは最終出力前にガンマ補正を行う。ただしテクスチャがガンマ補正がかかっていることが多い。この場合テクスチャに先にガンマデコーディングを施す。</p>
+<h1 id="14-odeio">14 オーディオ</h1>
+<h2 id="6-gemugu-you-noodeioji-neng">6 ゲーム固有のオーディオ機能</h2>
+<p>発生中に別の再生リクエストがきたらどうするか。また同一フレームで別のリクエストがきた場合は？
+セリフに優先度つけることで解決できる。
+セリフを再生中に別のセリフを再生する場合はフェードなどを行なってはいけない。<br />
+理想的には新しいセリフの再生前に何らかの声門閉鎖音を再生したい。<br />
+そんなことをしなくてもうまくいくケースもある。ほとんどのケースで問題ないように感じられる。<br />
+「ケースバイケース」</p>
+</div>
+</section>
+
+
+  </main>
+  <footer>
+    blocks note
+    
+    
+    
+  </footer>
+</body>

@@ -1,0 +1,4 @@
+User-agent: *
+Disallow:
+Allow: /
+Sitemap: https://block-cube-lib.github.io/note/sitemap.xml

@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<head>
+  <title>
+    
+      Unityのバッチモードでslnやcsprojを生成する - blocks note
+    
+  </title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" type="text/css" href="https://block-cube-lib.github.io/note/style.css">
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700&family=Source+Code+Pro:ital,wght@0,400;0,500;0,700;1,400;1,500;1,700&display=swap" rel="stylesheet">
+</head>
+<body>
+  <header class="header">
+      <div class="top">
+        <a href="https:&#x2F;&#x2F;block-cube-lib.github.io&#x2F;note">blocks note</a>
+      </div>
+  </header>
+  <nav class="container">
+    <h2><a href="https:&#x2F;&#x2F;block-cube-lib.github.io&#x2F;note/categories">Categories</a></h2>
+    <ul>
+      <li><a href="https:&#x2F;&#x2F;block-cube-lib.github.io&#x2F;note/categories/book">Book</a></li>
+      <li><a href="https:&#x2F;&#x2F;block-cube-lib.github.io&#x2F;note/categories/video">Video</a></li>
+      <li><a href="https:&#x2F;&#x2F;block-cube-lib.github.io&#x2F;note/categories/conference">Conference</a></li>
+      <li><a href="https:&#x2F;&#x2F;block-cube-lib.github.io&#x2F;note/categories/memo">Memo</a></li>
+    </ul>
+    <h2><a href="https:&#x2F;&#x2F;block-cube-lib.github.io&#x2F;note/tags">Tags</a></h2>
+  </nav>
+  <main class="container">
+    
+
+<h1 class="title">
+  Unityのバッチモードでslnやcsprojを生成する
+</h1>
+<section class="update_history">
+  <table>
+    <tr>
+      <td>
+  <span class = "date">2022&#x2F;12&#x2F;13 00:00</span>
+</td>
+      <td>作成</td>
+    </tr>
+    
+  </table>
+</section>
+<section class="published_at">
+  <table>
+    
+    
+  </table>
+</section>
+<div>
+  categories: 
+<span class = "categories">
+  
+  
+<span class = "categories-label"><a href="https://block-cube-lib.github.io/note/categories/memo/">Memo</a></span>
+
+  
+</span>
+
+</div>
+<div>
+  tags: 
+<span class = "tags">
+  
+  
+<span class = "tags-label"><a href="https://block-cube-lib.github.io/note/tags/oss/">OSS</a></span>
+
+  
+</span>
+
+</div>
+<section class="links">
+  
+</section>
+<section class="page">
+  <aside>
+    
+<ul>
+   
+  <li><a href="#unity-2021-2made">Unity 2021.2まで</a></li>
+  <ul>
+    
+  </ul>
+   
+  <li><a href="#unity-2021-3yi-jiang">Unity 2021.3以降</a></li>
+  <ul>
+    
+  </ul>
+   
+  <li><a href="#can-kao">参考</a></li>
+  <ul>
+    
+  </ul>
+  
+</ul>
+
+  </aside>
+  <div class="page-content"><h2 id="unity-2021-2made">Unity 2021.2まで</h2>
+<pre data-lang="sh" style="background-color:#1d1f29;color:#afbad4;" class="language-sh "><code class="language-sh" data-lang="sh"><span style="color:#7aa2f7;">Unity.exe</span><span style="color:#89ddff;"> -</span><span style="color:#e0af68;">batchmode</span><span style="color:#89ddff;"> -</span><span style="color:#e0af68;">executeMethod</span><span style="color:#7aa2f7;"> UnityEditor.SyncVS.SyncSolution</span><span style="color:#89ddff;"> -</span><span style="color:#e0af68;">projectPath</span><span style="color:#7aa2f7;"> ./</span><span style="color:#89ddff;"> -</span><span style="color:#e0af68;">quit
+</span></code></pre>
+<h2 id="unity-2021-3yi-jiang">Unity 2021.3以降</h2>
+<pre data-lang="sh" style="background-color:#1d1f29;color:#afbad4;" class="language-sh "><code class="language-sh" data-lang="sh"><span style="color:#7aa2f7;">Unity.exe</span><span style="color:#89ddff;"> -</span><span style="color:#e0af68;">batchmode</span><span style="color:#89ddff;"> -</span><span style="color:#e0af68;">executeMethod</span><span style="color:#7aa2f7;"> Packages.Rider.Editor.RiderScriptEditor.SyncSolution</span><span style="color:#89ddff;"> -</span><span style="color:#e0af68;">projectPath</span><span style="color:#7aa2f7;"> ./</span><span style="color:#89ddff;"> -</span><span style="color:#e0af68;">quit
+</span></code></pre>
+<h2 id="can-kao">参考</h2>
+<p>https://moris94.hatenablog.com/entry/2022/06/11/084624</p>
+</div>
+</section>
+
+
+  </main>
+  <footer>
+    blocks note
+    
+    
+    
+  </footer>
+</body>

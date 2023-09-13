@@ -1,0 +1,488 @@
+<!DOCTYPE html>
+<head>
+  <title>
+    
+      “Inertialization”の問題点とその改善手法について - 加算ブレンディングの悪影響を排除した改良型Inertial Transitionアルゴリズムの提案 - - blocks note
+    
+  </title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" type="text/css" href="https://block-cube-lib.github.io/note/style.css">
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700&family=Source+Code+Pro:ital,wght@0,400;0,500;0,700;1,400;1,500;1,700&display=swap" rel="stylesheet">
+</head>
+<body>
+  <header class="header">
+      <div class="top">
+        <a href="https:&#x2F;&#x2F;block-cube-lib.github.io&#x2F;note">blocks note</a>
+      </div>
+  </header>
+  <nav class="container">
+    <h2><a href="https:&#x2F;&#x2F;block-cube-lib.github.io&#x2F;note/categories">Categories</a></h2>
+    <ul>
+      <li><a href="https:&#x2F;&#x2F;block-cube-lib.github.io&#x2F;note/categories/book">Book</a></li>
+      <li><a href="https:&#x2F;&#x2F;block-cube-lib.github.io&#x2F;note/categories/video">Video</a></li>
+      <li><a href="https:&#x2F;&#x2F;block-cube-lib.github.io&#x2F;note/categories/conference">Conference</a></li>
+      <li><a href="https:&#x2F;&#x2F;block-cube-lib.github.io&#x2F;note/categories/memo">Memo</a></li>
+    </ul>
+    <h2><a href="https:&#x2F;&#x2F;block-cube-lib.github.io&#x2F;note/tags">Tags</a></h2>
+  </nav>
+  <main class="container">
+    
+
+<h1 class="title">
+  “Inertialization”の問題点とその改善手法について - 加算ブレンディングの悪影響を排除した改良型Inertial Transitionアルゴリズムの提案 -
+</h1>
+<section class="update_history">
+  <table>
+    <tr>
+      <td>
+  <span class = "date">2023&#x2F;08&#x2F;26 01:20</span>
+</td>
+      <td>作成</td>
+    </tr>
+    
+  </table>
+</section>
+<section class="published_at">
+  <table>
+    
+    
+  </table>
+</section>
+<div>
+  categories: 
+<span class = "categories">
+  
+  
+<span class = "categories-label"><a href="https://block-cube-lib.github.io/note/categories/conference/">Conference</a></span>
+
+  
+</span>
+
+</div>
+<div>
+  tags: 
+<span class = "tags">
+  
+  
+<span class = "tags-label"><a href="https://block-cube-lib.github.io/note/tags/algorithm/">Algorithm</a></span>
+
+  
+  
+<span class = "tags-label"><a href="https://block-cube-lib.github.io/note/tags/animation/">Animation</a></span>
+
+  
+  
+<span class = "tags-label"><a href="https://block-cube-lib.github.io/note/tags/cedec/">CEDEC</a></span>
+
+  
+  
+<span class = "tags-label"><a href="https://block-cube-lib.github.io/note/tags/cedec2023/">CEDEC2023</a></span>
+
+  
+</span>
+
+</div>
+<section class="links">
+  
+  <hr>
+  
+  <a href="https:&#x2F;&#x2F;cedec.cesa.or.jp&#x2F;2023&#x2F;session&#x2F;detail&#x2F;s64115b421c17c">https:&#x2F;&#x2F;cedec.cesa.or.jp&#x2F;2023&#x2F;session&#x2F;detail&#x2F;s64115b421c17c</a><br>
+  
+  
+  
+</section>
+<section class="page">
+  <aside>
+    
+<ul>
+   
+  <li><a href="#gai-yao">概要</a></li>
+  <ul>
+     
+    <li><a href="#jiang-yan-xing-shi">講演形式</a></li>
+    <ul>
+      
+    </ul>
+     
+    <li><a href="#jiang-yan-shi-jian">講演時間</a></li>
+    <ul>
+      
+    </ul>
+     
+    <li><a href="#jiang-yan-rumu">講演ルーム</a></li>
+    <ul>
+      
+    </ul>
+     
+    <li><a href="#shou-jiang-sukiru">受講スキル</a></li>
+    <ul>
+      
+    </ul>
+    
+  </ul>
+   
+  <li><a href="#suo-gan">所感</a></li>
+  <ul>
+    
+  </ul>
+   
+  <li><a href="#de-rareruzhi-jian">得られる知見</a></li>
+  <ul>
+     
+    <li><a href="#setusiyonnonei-rong">セッションの内容</a></li>
+    <ul>
+      
+    </ul>
+    
+  </ul>
+   
+  <li><a href="#memo">メモ</a></li>
+  <ul>
+     
+    <li><a href="#smooth-transitionji-fa-noyi-ban-lun">Smooth Transition技法の一般論</a></li>
+    <ul>
+      
+      <li><a href="#cnlian-sok-xing">Cn連続性</a></li>
+      <ul>
+        
+      </ul>
+      
+      <li><a href="#frozen-tarnsition">Frozen Tarnsition</a></li>
+      <ul>
+        
+        <li><a href="#shi-yong-nixiang-iteirukesu">適用に向いているケース</a></li>
+        <ul>
+          
+        </ul>
+        
+      </ul>
+      
+      <li><a href="#crossfade-transition">Crossfade Transition</a></li>
+      <ul>
+        
+        <li><a href="#shi-yong-nixiang-iteirukesu-1">適用に向いているケース</a></li>
+        <ul>
+          
+        </ul>
+        
+      </ul>
+      
+    </ul>
+     
+    <li><a href="#inertializationnogai-yao">Inertializationの概要</a></li>
+    <ul>
+      
+      <li><a href="#guan-xing-chai-fen-qu-xian-nodao-chu">慣性差分曲線の導出</a></li>
+      <ul>
+        
+      </ul>
+      
+    </ul>
+     
+    <li><a href="#obasiyutodui-ce">オーバーシュート対策</a></li>
+    <ul>
+      
+      <li><a href="#xia-fang-xiang-noobasiyutotiao-jian-nodao-chu">下方向のオーバーシュート条件の導出</a></li>
+      <ul>
+        
+        <li><a href="#gdc2018nobu-zheng">GDC2018の補正</a></li>
+        <ul>
+          
+        </ul>
+        
+      </ul>
+      
+    </ul>
+     
+    <li><a href="#ben-jiang-yan-niokeruinertializationnoxi-i">本講演におけるInertializationの扱い</a></li>
+    <ul>
+      
+    </ul>
+     
+    <li><a href="#inertializationnowen-ti-dian-togai-shan-shou-fa">Inertializationの問題点と改善手法</a></li>
+    <ul>
+      
+      <li><a href="#obarimituto">オーバーリミット</a></li>
+      <ul>
+        
+      </ul>
+      
+    </ul>
+     
+    <li><a href="#v0jian-shuai-bu-zheng-v0-0-nomatome">v0減衰補正(v0 &gt; 0)のまとめ</a></li>
+    <ul>
+      
+    </ul>
+     
+    <li><a href="#zi-dong-vshuai-bu-zheng-v0-0-nomatome">自動v衰補正(v0 &gt; 0)のまとめ</a></li>
+    <ul>
+      
+    </ul>
+     
+    <li><a href="#zi-dong-v0bu-zheng">自動v0補正</a></li>
+    <ul>
+      
+    </ul>
+     
+    <li><a href="#zi-dong-v0bu-zheng-nobaransudiao-zheng">自動v0補正のバランス調整</a></li>
+    <ul>
+      
+    </ul>
+     
+    <li><a href="#zi-dong-v0bu-zheng-nomatome">自動v0補正のまとめ</a></li>
+    <ul>
+      
+      <li><a href="#ke-ti">課題</a></li>
+      <ul>
+        
+      </ul>
+      
+    </ul>
+     
+    <li><a href="#dong-zuo-motion-henoqian-yi-nochang-he">動作(Motion)への遷移の場合</a></li>
+    <ul>
+      
+    </ul>
+     
+    <li><a href="#t1duan-suo-bu-zheng-nofu-zuo-yong">t1短縮補正の副作用</a></li>
+    <ul>
+      
+      <li><a href="#t1sukerigubu-zheng">t1スケーリグ補正</a></li>
+      <ul>
+        
+      </ul>
+      
+      <li><a href="#t1sukeringubu-zheng">t1スケーリング補正</a></li>
+      <ul>
+        
+      </ul>
+      
+    </ul>
+     
+    <li><a href="#ni-obariakusiyon">逆オーバーリアクション</a></li>
+    <ul>
+      
+    </ul>
+     
+    <li><a href="#matome">まとめ</a></li>
+    <ul>
+      
+    </ul>
+     
+    <li><a href="#gai-liang-xing-inertial-transitionarugorizumu">改良型Inertial Transitionアルゴリズム</a></li>
+    <ul>
+      
+      <li><a href="#er-duan-jie-burendeingunofu-zuo-yong-jie-xiao">二段階ブレンディングの副作用解消</a></li>
+      <ul>
+        
+      </ul>
+      
+    </ul>
+     
+    <li><a href="#gai-liang-xing-inertial-transitionarugorizumunomatome">改良型Inertial Transitionアルゴリズムのまとめ</a></li>
+    <ul>
+      
+    </ul>
+    
+  </ul>
+  
+</ul>
+
+  </aside>
+  <div class="page-content"><h1 id="gai-yao">概要</h1>
+<h2 id="jiang-yan-xing-shi">講演形式</h2>
+<p>レギュラーセッション</p>
+<h2 id="jiang-yan-shi-jian">講演時間</h2>
+<p>08月24日(木) 11:20 〜 12:20</p>
+<h2 id="jiang-yan-rumu">講演ルーム</h2>
+<p>第6会場</p>
+<h2 id="shou-jiang-sukiru">受講スキル</h2>
+<p>キャラクターモーション(Skeletal Transform Animation)処理に関する基礎知識。
+特に既存のSmooth Transition技法についての知識や、Inertializationについての知識(GDC2018, CEDEC2020)があると理解が速いと思いますが、これらについても必要な部分は簡単に触れますし、講演内容そのものも難解なものではありませんので、知らなくても問題ありません。</p>
+<h1 id="suo-gan">所感</h1>
+<p>アニメーションのブレンド方法はLERPによるものしか知らなかったため、かなり勉強になった。<br />
+Inertializationを用いた実装が既にUEなどで採用されていること、それが実は問題を抱えていることを知ることができた。<br />
+今回知った手法も万能ではなく、今後も改良されていくことが予想される。<br />
+しっかりとアンテナを張っていないと知らない技術だらけになると感じた。</p>
+<h1 id="de-rareruzhi-jian">得られる知見</h1>
+<ul>
+<li>Smooth Transitionアルゴリズムの基礎知識と既存技術が抱える問題点</li>
+<li>Inertializationの挙動上の問題点とその改善方法</li>
+<li>改良型Inertial Transitionアルゴリズムについての知見</li>
+<li>自分でInertializationをスクラッチする際のヒント</li>
+</ul>
+<h2 id="setusiyonnonei-rong">セッションの内容</h2>
+<p>セッションの内容
+“Inertialization”は、GDC2018で発表されたSmooth Transitionアルゴリズムで、遷移元モーションの変化速度に応じた慣性挙動を実現するInertial Transition(慣性遷移)の一種です。後にUnreal Engine 4に採用されたことでも話題になりました。
+Inertializationでは計算で作り出した慣性差分を遷移先モーションに加算ブレンディングすることで遷移時の滑らかな補間を実現していますが、この加算ブレンディングに起因した挙動上の問題点がいくつか確認されています。
+その中でも最大の問題点が、過大な慣性成分が生じた際に関節の可動域限界を容易に突破してしまうオーバーリミット問題です。本講演では、このオーバーリミットを始めとするInertializationの大小様々な挙動上の問題点について、それぞれの発生メカニズムと、その解決のために取った補正処理や設定項目について解説します。
+また、実際には加算ブレンディング起因の問題点は、Inertializationへの補正処理だけでは完全には解決しきれませんでした。しかしながら、それらの問題についてはInertializationの技術を転用した別のInertial Transitionアルゴリズムを作り出すことで問題解決に繋げることができたので、こちらについても詳しく解説します。</p>
+<h1 id="memo">メモ</h1>
+<p>&quot;Inertialization&quot;とは？
+読み方: イナーシャライゼーション
+意味: 慣性化</p>
+<p>講演でのInertializationは固有名詞<br />
+CEDEC2018, 2020で関連セッションあり</p>
+<h2 id="smooth-transitionji-fa-noyi-ban-lun">Smooth Transition技法の一般論</h2>
+<p>モーションAからモーションBへの遷移を滑らかに行う技法<br />
+モーション遷移時に位置や姿勢の差を補間処理で吸収する処理</p>
+<ul>
+<li>位置や姿勢の連続性(C<sup>0</sup>連続性)が担保されていることが必須条件(最低条件)</li>
+<li>速度の連続性(C<sup>1</sup>連続性)も重視される</li>
+</ul>
+<h3 id="cnlian-sok-xing">C<sup>n</sup>連続性</h3>
+<p>モーションの滑らかさのレベルを表す専門用語</p>
+<ul>
+<li>C<sup>0</sup>連続性: 位置や姿勢の連続性</li>
+<li>C<sup>1</sup>連続性: 速度の連続性</li>
+<li>C<sup>2</sup>連続性: 加速度の連続性</li>
+<li>C<sup>3</sup>連続性: 躍度の連続性</li>
+</ul>
+<p>資料の最後に参考文献あり</p>
+<h3 id="frozen-tarnsition">Frozen Tarnsition</h3>
+<ul>
+<li>遷移元モーションの最終姿勢(静止姿勢)と遷移先モーションをLERPブレンド</li>
+<li>遷移開始直後の速度連続性(C<sup>1</sup>連続性)が低い
+<ul>
+<li>ブレンディング曲線のEasingは終了時のみに適用する方が良い</li>
+</ul>
+</li>
+<li>全身一様で単調な補完挙動</li>
+<li>目立った副作用がなく、モーションの組み合わせによる相性問題が少ない</li>
+<li>処理負荷が軽い(低い、速い)</li>
+</ul>
+<h4 id="shi-yong-nixiang-iteirukesu">適用に向いているケース</h4>
+<ul>
+<li>任意のモーション同士、任意のタイミングでの遷移</li>
+<li>処理負荷の軽さが優先される場合</li>
+</ul>
+<h3 id="crossfade-transition">Crossfade Transition</h3>
+<ul>
+<li>遷移元モーションを動かしながら、遷移先モーションとLERPブレンド</li>
+<li>遷移開始直後の速度連続性(C<sup>1</sup>連続性)が高い
+<ul>
+<li>ブレンディング曲線のEasingは開始終了時の両方に適用する方が良い</li>
+</ul>
+</li>
+<li>うまく設計された状況では唯一無二の表現力の高さ</li>
+<li>オーバーリアクション問題</li>
+<li>処理負荷が重い(高い、遅い)</li>
+</ul>
+<p>エンジンのの機能として実装されていることが多い。<br />
+そのまま使われることも多い。</p>
+<h4 id="shi-yong-nixiang-iteirukesu-1">適用に向いているケース</h4>
+<ul>
+<li>決められた組み合わせ、タイミングでの遷移</li>
+<li>足運びの再現など、特殊な挙動の品質が優先される場合</li>
+</ul>
+<h2 id="inertializationnogai-yao">Inertializationの概要</h2>
+<p>加算ブレンディングで合成
+詳細はGDC2018やCEDEC2020の講演資料を参照。
+でもちょっと違う。</p>
+<h3 id="guan-xing-chai-fen-qu-xian-nodao-chu">慣性差分曲線の導出</h3>
+<p>a0 = 2Dを使用しない<br />
+a0は特別な意味を持たないので</p>
+<h2 id="obasiyutodui-ce">オーバーシュート対策</h2>
+<p>v0の大小だけで決まる</p>
+<h3 id="xia-fang-xiang-noobasiyutotiao-jian-nodao-chu">下方向のオーバーシュート条件の導出</h3>
+<p>s(t1) &lt; 0の場合に下方向のオーバーシュートが発生する</p>
+<h4 id="gdc2018nobu-zheng">GDC2018の補正</h4>
+<p>a0 &lt; 0の場合にa0 = 0にする補正</p>
+<p><strong>これは完全に間違った補正</strong>
+a0は方程式を問いて決まる値なので勝手に変更してはいけない</p>
+<p><em><strong>品質が劣化する!!!</strong></em></p>
+<h2 id="ben-jiang-yan-niokeruinertializationnoxi-i">本講演におけるInertializationの扱い</h2>
+<ol>
+<li>a0補正は行わない</li>
+<li>上方向のオーバーシュート対策(v0=0)は一旦外す</li>
+</ol>
+<h2 id="inertializationnowen-ti-dian-togai-shan-shou-fa">Inertializationの問題点と改善手法</h2>
+<h3 id="obarimituto">オーバーリミット</h3>
+<p>ブレンディング結果が関節可動範囲を超えてしまう問題</p>
+<p>x(t) &gt; x0となる区間が出現すると発生する可能性がある<br />
+必ずではない</p>
+<h2 id="v0jian-shuai-bu-zheng-v0-0-nomatome">v0減衰補正(v0 &gt; 0)のまとめ</h2>
+<h2 id="zi-dong-vshuai-bu-zheng-v0-0-nomatome">自動v衰補正(v0 &gt; 0)のまとめ</h2>
+<p>簡易的なQuaterniaonの範囲制限モデル</p>
+<h2 id="zi-dong-v0bu-zheng">自動v0補正</h2>
+<h2 id="zi-dong-v0bu-zheng-nobaransudiao-zheng">自動v0補正のバランス調整</h2>
+<p>手動v0補正と併用</p>
+<h2 id="zi-dong-v0bu-zheng-nomatome">自動v0補正のまとめ</h2>
+<h3 id="ke-ti">課題</h3>
+<ul>
+<li>処理負荷(初回計算が重い)</li>
+<li>Quaternionの範囲制限</li>
+</ul>
+<h2 id="dong-zuo-motion-henoqian-yi-nochang-he">動作(Motion)への遷移の場合</h2>
+<p>静止姿勢で有効であったがったが、動作への遷移では難しい</p>
+<h2 id="t1duan-suo-bu-zheng-nofu-zuo-yong">t1短縮補正の副作用</h2>
+<p>下方向のオーバーシュート対策</p>
+<h3 id="t1sukerigubu-zheng">t1スケーリグ補正</h3>
+<h3 id="t1sukeringubu-zheng">t1スケーリング補正</h3>
+<h2 id="ni-obariakusiyon">逆オーバーリアクション</h2>
+<h2 id="matome">まとめ</h2>
+<ul>
+<li>
+<p>解決できたこと</p>
+<ul>
+<li>遷移姿勢(Pose)への遷移のオーバーリミット問題</li>
+<li>t1短縮補正による副作用の問題</li>
+</ul>
+</li>
+<li>
+<p>解決できなかったこと</p>
+<ul>
+<li>動作(Motion)への遷移時のオーバーリミット問題</li>
+<li>遷移序盤の逆オーバーリアクション問題</li>
+</ul>
+<p>いずれも加算ブレンディングに起因する問題</p>
+</li>
+</ul>
+<h2 id="gai-liang-xing-inertial-transitionarugorizumu">改良型Inertial Transitionアルゴリズム</h2>
+<p>加算ブレンディングを問題のない範囲で使用する</p>
+<p>アルゴリズム概要</p>
+<ol>
+<li>遷移元モーションの先頭姿勢に対してInertializationを計算</li>
+<li>1の結果に対してLERPブレンドを行う</li>
+</ol>
+<p><strong>Stable Inertial Transition</strong>
+Inertialization × Crossfade Transition</p>
+<ul>
+<li>問題点
+<ul>
+<li>Inertializationより処理負荷大</li>
+<li>二段階ブレンディングによる挙動への副作用
+<ul>
+<li>遷移中盤付近で遷移先モーションの先頭姿勢の影響が強く出る</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="er-duan-jie-burendeingunofu-zuo-yong-jie-xiao">二段階ブレンディングの副作用解消</h3>
+<ul>
+<li>副作用の解消方法
+<ul>
+<li>Inertializationの対象を遷移先の先頭姿勢以外から選択可能</li>
+</ul>
+</li>
+</ul>
+<h2 id="gai-liang-xing-inertial-transitionarugorizumunomatome">改良型Inertial Transitionアルゴリズムのまとめ</h2>
+<ul>
+<li>Stable Inertial Transition</li>
+<li>どの手法にも長所・短所がある</li>
+</ul>
+</div>
+</section>
+
+
+  </main>
+  <footer>
+    blocks note
+    
+    
+    
+  </footer>
+</body>

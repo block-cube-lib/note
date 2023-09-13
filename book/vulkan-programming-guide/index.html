@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<head>
+  <title>
+    
+      Vulkan プログラミングガイド - blocks note
+    
+  </title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" type="text/css" href="https://block-cube-lib.github.io/note/style.css">
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700&family=Source+Code+Pro:ital,wght@0,400;0,500;0,700;1,400;1,500;1,700&display=swap" rel="stylesheet">
+</head>
+<body>
+  <header class="header">
+      <div class="top">
+        <a href="https:&#x2F;&#x2F;block-cube-lib.github.io&#x2F;note">blocks note</a>
+      </div>
+  </header>
+  <nav class="container">
+    <h2><a href="https:&#x2F;&#x2F;block-cube-lib.github.io&#x2F;note/categories">Categories</a></h2>
+    <ul>
+      <li><a href="https:&#x2F;&#x2F;block-cube-lib.github.io&#x2F;note/categories/book">Book</a></li>
+      <li><a href="https:&#x2F;&#x2F;block-cube-lib.github.io&#x2F;note/categories/video">Video</a></li>
+      <li><a href="https:&#x2F;&#x2F;block-cube-lib.github.io&#x2F;note/categories/conference">Conference</a></li>
+      <li><a href="https:&#x2F;&#x2F;block-cube-lib.github.io&#x2F;note/categories/memo">Memo</a></li>
+    </ul>
+    <h2><a href="https:&#x2F;&#x2F;block-cube-lib.github.io&#x2F;note/tags">Tags</a></h2>
+  </nav>
+  <main class="container">
+    
+
+<h1 class="title">
+  Vulkan プログラミングガイド
+</h1>
+<section class="update_history">
+  <table>
+    <tr>
+      <td>
+  <span class = "date">2023&#x2F;01&#x2F;04 00:00</span>
+</td>
+      <td>作成</td>
+    </tr>
+    
+  </table>
+</section>
+<section class="published_at">
+  <table>
+    
+    <tr>
+      <td>
+  <span class = "date">2022&#x2F;06&#x2F;25 00:00</span>
+</td>
+      <td>コンテンツ公開日</td>
+    <tr>
+    
+    
+    <tr>
+      <td>
+  <span class = "date">2016&#x2F;10&#x2F;31 00:00</span>
+</td>
+      <td>オリジナルコンテンツ公開日</td>
+    <tr>
+    
+  </table>
+</section>
+<div>
+  categories: 
+<span class = "categories">
+  
+  
+<span class = "categories-label"><a href="https://block-cube-lib.github.io/note/categories/book/">Book</a></span>
+
+  
+</span>
+
+</div>
+<div>
+  tags: 
+<span class = "tags">
+  
+  
+<span class = "tags-label"><a href="https://block-cube-lib.github.io/note/tags/graphics/">Graphics</a></span>
+
+  
+  
+<span class = "tags-label"><a href="https://block-cube-lib.github.io/note/tags/vulkan/">Vulkan</a></span>
+
+  
+</span>
+
+</div>
+<section class="links">
+  
+</section>
+<section class="page">
+  <aside>
+    
+<ul>
+   
+  <li><a href="#konoben-nituite">この本について</a></li>
+  <ul>
+     
+    <li><a href="#dui-xiang-du-zhe">対象読者</a></li>
+    <ul>
+      
+    </ul>
+     
+    <li><a href="#sanpurukodo">サンプルコード</a></li>
+    <ul>
+      
+    </ul>
+    
+  </ul>
+   
+  <li><a href="#di-1zhang-vulkannogai-yao">第1章 Vulkanの概要</a></li>
+  <ul>
+     
+    <li><a href="#insutansu-debaisu-kiyu">インスタンス、デバイス、キュー</a></li>
+    <ul>
+      
+      <li><a href="#vulkaninsutansu">Vulkanインスタンス</a></li>
+      <ul>
+        
+      </ul>
+      
+      <li><a href="#vulkan-wu-li-debaisu">Vulkan 物理デバイス</a></li>
+      <ul>
+        
+      </ul>
+      
+      <li><a href="#wu-li-debaisu-memori">物理デバイス メモリー</a></li>
+      <ul>
+        
+      </ul>
+      
+      <li><a href="#debaisu-kiyu">デバイス キュー</a></li>
+      <ul>
+        
+      </ul>
+      
+      <li><a href="#lun-li-debaisuwozuo-cheng-suru">論理デバイスを作成する</a></li>
+      <ul>
+        
+      </ul>
+      
+      <li><a href="#obuziekutonoxing-toguan-shu-gui-yue">オブジェクトの型と関数規約</a></li>
+      <ul>
+        
+      </ul>
+      
+      <li><a href="#memoriguan-li">メモリー管理</a></li>
+      <ul>
+        
+      </ul>
+      
+    </ul>
+    
+  </ul>
+  
+</ul>
+
+  </aside>
+  <div class="page-content"><p>Vulkan プログラミングガイドを読んだメモ<br />
+原題: Vulkan Programming Guide: The Official Guide to Learning Vulkan (OpenGL) </p>
+<hr />
+<h2 id="konoben-nituite">この本について</h2>
+<p>Vulkanの解説です。 
+同期、スケジューリング、メモリー管理などはVulkan以外にも適用できる一般的なトピックだがこの本のかなりの部分が底に当てられている。</p>
+<h4 id="dui-xiang-du-zhe">対象読者</h4>
+<p>ぅCDに補kzのグラフィックスとコンピュートAPIに精通した経験のあるプログラマー。<br />
+コードサンプルは入力可能な完全なプログラムではない。公開されているサンプルコードは実行可能(完全なテスト済み)。</p>
+<p>Vulkanは単純なテストアプリケーションには不向き。<br />
+グラフィックスの概念を教えるのにも向いていない。</p>
+<p>Vulkanは大きく、複雑で新しいシステム。
+この範囲の1冊の本でAPIを隅々まで網羅するのは極めて困難。
+読者はこの本だけでなくVulkanの使用wy尾を熟読し他のAPIでヘテロジニアスコンピュートシステムとグラフィックスの使用に関する本を読むことを推奨。</p>
+<h3 id="sanpurukodo">サンプルコード</h3>
+<p><a href="https://www.vulkanprogrammingguide.com">vulkanprogrammingguide.com</a>で公開されているらしい。→されてなかった。<br />
+本とは違う内容の<a href="https://github.com/KhronosGroup/Vulkan-Samples">最新のサンプル(github)</a>。</p>
+<h1 id="di-1zhang-vulkannogai-yao">第1章 Vulkanの概要</h1>
+<p>Vulkanは明示的なAPI。OpenGLがやってくれたようなステートkの管理やメモリーとの同期やエラーチェックはすべて自分でやる必要がある。<br />
+OpenGLの方法は素晴らしいが完全にデバッグ済みであればCPUの時間を無駄にする。 </p>
+<p>Vulkanは非常に饒舌、同時にいくらか脆弱。使い方を誤ると以前のAPIなら有用なエラーメッセージを受け取る場所でクラッシュが起きたりする。<br />
+引き換えにデバイスに対する多くの制御と、スッキリしたスレッド処理モデル、従来より遥かに高い性能を提供する。</p>
+<p>VulkanはグラフィックスAPIにとどまらないものとして設計された。<br />
+描画のAPI(<strong>プレゼンテーション</strong>)もコアAPIではなく<strong>拡張機能</strong>として提供される。</p>
+<h2 id="insutansu-debaisu-kiyu">インスタンス、デバイス、キュー</h2>
+<p><img src="/images/vulkan_instance_device_queue.png" alt="instance_device_queue" /></p>
+<h3 id="vulkaninsutansu">Vulkanインスタンス</h3>
+<p>VulkanはOpenGLのようにグローバルなステートを導入しないのでアプリケーションが供給するオブジェクトに格納する必要がある。<br />
+これがインスタンスオブジェクト。</p>
+<pre data-lang="c" style="background-color:#1d1f29;color:#afbad4;" class="language-c "><code class="language-c" data-lang="c"><span>vkResult </span><span style="color:#7aa2f7;">vkCreateInstance</span><span style="color:#9abdf5;">(</span><span style="font-style:italic;color:#9d7cd8;">const</span><span> VkInstanceCreateInfo</span><span style="color:#89ddff;">*  </span><span style="color:#e0af68;">pCreateInfo</span><span style="color:#89ddff;">,
+</span><span>                          </span><span style="font-style:italic;color:#9d7cd8;">const</span><span> VkAllocationCallbacks</span><span style="color:#89ddff;">* </span><span style="color:#e0af68;">pAllocator</span><span style="color:#89ddff;">,
+</span><span>                          VkInstance</span><span style="color:#89ddff;">*                  </span><span style="color:#e0af68;">pInstance</span><span style="color:#9abdf5;">)</span><span style="color:#89ddff;">;
+</span></code></pre>
+<p>で作成できる</p>
+<h3 id="vulkan-wu-li-debaisu">Vulkan 物理デバイス</h3>
+<pre data-lang="c" style="background-color:#1d1f29;color:#afbad4;" class="language-c "><code class="language-c" data-lang="c"><span style="color:#7aa2f7;">vkEnumeratePhysicalDevices</span><span style="color:#9abdf5;">(</span><span style="color:#7aa2f7;">VkInstance instance</span><span style="color:#89ddff;">, </span><span style="color:#0db9d7;">uint32_t</span><span style="color:#89ddff;">*</span><span style="color:#7aa2f7;"> pPhysicalDeviceCount</span><span style="color:#89ddff;">,</span><span style="color:#7aa2f7;"> VkPhysicalDevice</span><span style="color:#89ddff;">*</span><span style="color:#7aa2f7;"> pPhysicalDevices</span><span style="color:#9abdf5;">)
+</span></code></pre>
+<p><code>pPhysicalDevices</code>に<code>nullptr</code>を渡すとpPhysicalDeviceCountに物理デバイスの数が入る。<br />
+その後<code>pPhysicalDevices</code>に有効な値を入れてもう一度呼び出すことで物理デバイスの取得ができる。
+<a href="https://github.com/KhronosGroup/Vulkan-Samples/blob/9198f24ddd3dab9dd131d525c54689b6ab6da835/framework/core/instance.cpp#L424-L444">サンプル内のコード</a></p>
+<h3 id="wu-li-debaisu-memori">物理デバイス メモリー</h3>
+<p>取得の仕方とか意味</p>
+<h3 id="debaisu-kiyu">デバイス キュー</h3>
+<p>キューとキューファミリーについてとその取得方法<br />
+<code>vkGetPPhysicalDeviceQueueFamilyProperties()</code>は2回呼び出すことが期待される点が<code>vkEnumeratePhysicalDevices()</code>に少し似ている</p>
+<h3 id="lun-li-debaisuwozuo-cheng-suru">論理デバイスを作成する</h3>
+<p><code>vkCreateDevice</code>で作成。物理デバイスを渡す。<br />
+論理デバイス作成の<code>VkDeviceCreateInfo</code>には<code>VkDeviceQueueCerateInfo*</code>型の変数も存在しデバイスキューの作成も行う。<br />
+特定の機能を有効化するのは<code>vkGetPhysicalDeviceFeatures</code>でサポートされているFeaturesを確認して必要なものだけ有効化すると良い。(全て有効化するのはパフォーマンス的に悪手)</p>
+<h3 id="obuziekutonoxing-toguan-shu-gui-yue">オブジェクトの型と関数規約</h3>
+<h3 id="memoriguan-li">メモリー管理</h3>
+<p><strong>ホストメモリー</strong>と<strong>デバイスメモリー</strong>という2種類が提供される。<br />
+デバイスアロケーターについては2章で</p>
+</div>
+</section>
+
+
+  </main>
+  <footer>
+    blocks note
+    
+    
+    
+  </footer>
+</body>

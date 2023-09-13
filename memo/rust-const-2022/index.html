@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<head>
+  <title>
+    
+      2022年のRustのconst関係の更新メモ - blocks note
+    
+  </title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" type="text/css" href="https://block-cube-lib.github.io/note/style.css">
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700&family=Source+Code+Pro:ital,wght@0,400;0,500;0,700;1,400;1,500;1,700&display=swap" rel="stylesheet">
+</head>
+<body>
+  <header class="header">
+      <div class="top">
+        <a href="https:&#x2F;&#x2F;block-cube-lib.github.io&#x2F;note">blocks note</a>
+      </div>
+  </header>
+  <nav class="container">
+    <h2><a href="https:&#x2F;&#x2F;block-cube-lib.github.io&#x2F;note/categories">Categories</a></h2>
+    <ul>
+      <li><a href="https:&#x2F;&#x2F;block-cube-lib.github.io&#x2F;note/categories/book">Book</a></li>
+      <li><a href="https:&#x2F;&#x2F;block-cube-lib.github.io&#x2F;note/categories/video">Video</a></li>
+      <li><a href="https:&#x2F;&#x2F;block-cube-lib.github.io&#x2F;note/categories/conference">Conference</a></li>
+      <li><a href="https:&#x2F;&#x2F;block-cube-lib.github.io&#x2F;note/categories/memo">Memo</a></li>
+    </ul>
+    <h2><a href="https:&#x2F;&#x2F;block-cube-lib.github.io&#x2F;note/tags">Tags</a></h2>
+  </nav>
+  <main class="container">
+    
+
+<h1 class="title">
+  2022年のRustのconst関係の更新メモ
+</h1>
+<section class="update_history">
+  <table>
+    <tr>
+      <td>
+  <span class = "date">2022&#x2F;12&#x2F;15 00:00</span>
+</td>
+      <td>作成</td>
+    </tr>
+    
+  </table>
+</section>
+<section class="published_at">
+  <table>
+    
+    
+  </table>
+</section>
+<div>
+  categories: 
+<span class = "categories">
+  
+  
+<span class = "categories-label"><a href="https://block-cube-lib.github.io/note/categories/memo/">Memo</a></span>
+
+  
+</span>
+
+</div>
+<div>
+  tags: 
+<span class = "tags">
+  
+  
+<span class = "tags-label"><a href="https://block-cube-lib.github.io/note/tags/rust/">Rust</a></span>
+
+  
+</span>
+
+</div>
+<section class="links">
+  
+</section>
+<section class="page">
+  <aside>
+    
+<ul>
+   
+  <li><a href="#language">Language</a></li>
+  <ul>
+     
+    <li><a href="#1-58-0">1.58.0</a></li>
+    <ul>
+      
+      <li><a href="#const-t-pointers-can-now-be-dereferenced-in-const-contexts">*const T pointers can now be dereferenced in const contexts.</a></li>
+      <ul>
+        
+      </ul>
+      
+    </ul>
+     
+    <li><a href="#1-59-0">1.59.0</a></li>
+    <ul>
+      
+      <li><a href="#stabilize-default-arguments-for-const-parameters-and-remove-the-ordering-restriction-for-type-and-const-parameters">Stabilize default arguments for const parameters and remove the ordering restriction for type and const parameters</a></li>
+      <ul>
+        
+      </ul>
+      
+    </ul>
+     
+    <li><a href="#1-61-0">1.61.0</a></li>
+    <ul>
+      
+      <li><a href="#const-fn-signatures-can-now-include-generic-trait-bounds">const fn signatures can now include generic trait bounds</a></li>
+      <ul>
+        
+        <li><a href="#zuo-cheng-tofan-que">作成と返却</a></li>
+        <ul>
+          
+        </ul>
+        
+        <li><a href="#kiyasuto">キャスト</a></li>
+        <ul>
+          
+        </ul>
+        
+      </ul>
+      
+      <li><a href="#const-fn-signatures-can-now-use-impl-trait-in-argument-and-return-position">const fn signatures can now use impl Trait in argument and return position</a></li>
+      <ul>
+        
+      </ul>
+      
+      <li><a href="#function-pointers-can-now-be-created-cast-and-passed-around-in-a-const-fn">Function pointers can now be created, cast, and passed around in a const fn</a></li>
+      <ul>
+        
+      </ul>
+      
+    </ul>
+     
+    <li><a href="#1-62-0">1.62.0</a></li>
+    <ul>
+      
+      <li><a href="#fix-constants-not-getting-dropped-if-part-of-a-diverging-expression">Fix constants not getting dropped if part of a diverging expression</a></li>
+      <ul>
+        
+      </ul>
+      
+      <li><a href="#const-functions-may-now-specify-extern-c-or-extern-rust">const functions may now specify extern &quot;C&quot; or extern &quot;Rust&quot;</a></li>
+      <ul>
+        
+      </ul>
+      
+    </ul>
+     
+    <li><a href="#1-66-0">1.66.0</a></li>
+    <ul>
+      
+      <li><a href="#change-constant-evaluation-errors-from-a-deny-by-default-lint-to-a-hard-error">Change constant evaluation errors from a deny-by-default lint to a hard error</a></li>
+      <ul>
+        
+      </ul>
+      
+    </ul>
+    
+  </ul>
+   
+  <li><a href="#stabilized-apis">Stabilized APIs</a></li>
+  <ul>
+     
+    <li><a href="#1-65-0">1.65.0</a></li>
+    <ul>
+      
+    </ul>
+     
+    <li><a href="#these-apis-are-now-usable-in-const-contexts">These APIs are now usable in const contexts:</a></li>
+    <ul>
+      
+      <li><a href="#1-58-0-1">1.58.0</a></li>
+      <ul>
+        
+      </ul>
+      
+      <li><a href="#1-61-0-1">1.61.0</a></li>
+      <ul>
+        
+      </ul>
+      
+      <li><a href="#1-63-0">1.63.0</a></li>
+      <ul>
+        
+      </ul>
+      
+      <li><a href="#1-64-0">1.64.0</a></li>
+      <ul>
+        
+      </ul>
+      
+      <li><a href="#1-65-0-1">1.65.0</a></li>
+      <ul>
+        
+      </ul>
+      
+    </ul>
+     
+    <li><a href="#const-stable">Const-stable:</a></li>
+    <ul>
+      
+      <li><a href="#1-59-0-1">1.59.0</a></li>
+      <ul>
+        
+      </ul>
+      
+    </ul>
+    
+  </ul>
+   
+  <li><a href="#compatibility-notes">Compatibility Notes</a></li>
+  <ul>
+     
+    <li><a href="#1-64-0-1">1.64.0</a></li>
+    <ul>
+      
+      <li><a href="#errors-at-const-eval-time-are-now-in-future-incompatibility-reports">Errors at const-eval time are now in future incompatibility reports</a></li>
+      <ul>
+        
+      </ul>
+      
+    </ul>
+    
+  </ul>
+  
+</ul>
+
+  </aside>
+  <div class="page-content"><p><a href="https://github.com/rust-lang/rust/blob/master/RELEASES.md">リリースノート</a><br />
+Versionは1.58.0 (2022-01-13)から1.66.0 (2022-12-15)まで</p>
+<p>とりあえずconstっぽいもの片っ端から</p>
+<hr />
+<h2 id="language">Language</h2>
+<h3 id="1-58-0">1.58.0</h3>
+<h4 id="const-t-pointers-can-now-be-dereferenced-in-const-contexts"><a href="https://github.com/rust-lang/rust/pull/89551/">*const T pointers can now be dereferenced in const contexts.</a></h4>
+<p>定数文脈で<code>*const T</code>を逆参照できるようになった。<br />
+ただし<code>*mut T</code>のようなミュータブルな参照は逆参照できない。</p>
+<h3 id="1-59-0">1.59.0</h3>
+<h4 id="stabilize-default-arguments-for-const-parameters-and-remove-the-ordering-restriction-for-type-and-const-parameters"><a href="https://github.com/rust-lang/rust/pull/90207/">Stabilize default arguments for const parameters and remove the ordering restriction for type and const parameters</a></h4>
+<ul>
+<li>const genericsのデフォルト値を設定できるようなった</li>
+<li>genericsパラメーターの順番がライフタイム→型→定数と固定だったのをライフタイム→型or定数とできるようになった</li>
+</ul>
+<h3 id="1-61-0">1.61.0</h3>
+<h4 id="const-fn-signatures-can-now-include-generic-trait-bounds"><a href="https://github.com/rust-lang/rust/pull/93827/">const fn signatures can now include generic trait bounds</a></h4>
+<p><code>const fn</code>の中で関数ポインタの作成、返却、キャストを可能にした。<br />
+関数ポインタから整数型へ変換や関数ポインタの呼び出しは不可。</p>
+<h5 id="zuo-cheng-tofan-que">作成と返却</h5>
+<pre data-lang="rust" style="background-color:#1d1f29;color:#afbad4;" class="language-rust "><code class="language-rust" data-lang="rust"><span style="color:#bb9af7;">const fn </span><span style="color:#7aa2f7;">get_function</span><span style="color:#9abdf5;">() </span><span style="color:#89ddff;">-&gt; </span><span style="color:#bb9af7;">fn</span><span style="color:#9abdf5;">() {
+</span><span style="color:#9abdf5;">    </span><span style="color:#bb9af7;">fn </span><span style="color:#7aa2f7;">foo</span><span style="color:#9abdf5;">() {
+</span><span style="color:#9abdf5;">        println!(</span><span style="color:#89ddff;">&quot;</span><span style="color:#9ece6a;">Hello, World!</span><span style="color:#89ddff;">&quot;</span><span style="color:#9abdf5;">)</span><span style="color:#89ddff;">;
+</span><span style="color:#9abdf5;">    }
+</span><span style="color:#9abdf5;">    
+</span><span style="color:#9abdf5;">    foo
+</span><span style="color:#9abdf5;">}
+</span></code></pre>
+<h5 id="kiyasuto">キャスト</h5>
+<pre data-lang="rust" style="background-color:#1d1f29;color:#afbad4;" class="language-rust "><code class="language-rust" data-lang="rust"><span style="color:#bb9af7;">const fn </span><span style="color:#7aa2f7;">get_function</span><span style="color:#9abdf5;">() </span><span style="color:#89ddff;">-&gt; </span><span style="color:#bb9af7;">fn</span><span style="color:#9abdf5;">() {
+</span><span style="color:#9abdf5;">    </span><span style="font-style:italic;color:#9d7cd8;">unsafe </span><span style="color:#9abdf5;">{
+</span><span style="color:#9abdf5;">        std</span><span style="color:#89ddff;">::</span><span style="color:#9abdf5;">mem</span><span style="color:#89ddff;">::</span><span style="color:#9abdf5;">transmute(</span><span style="color:#ff9e64;">0x1234</span><span style="color:#bb9af7;">usize</span><span style="color:#9abdf5;">)
+</span><span style="color:#9abdf5;">    }
+</span><span style="color:#9abdf5;">}
+</span></code></pre>
+<p>ただし以下のような関数ポインタから整数への変換はできない</p>
+<pre data-lang="rust" style="background-color:#1d1f29;color:#afbad4;" class="language-rust "><code class="language-rust" data-lang="rust"><span style="color:#bb9af7;">const fn </span><span style="color:#7aa2f7;">fn_to_usize</span><span style="color:#9abdf5;">(</span><span style="color:#e0af68;">f</span><span style="color:#89ddff;">: </span><span style="color:#bb9af7;">fn</span><span style="color:#9abdf5;">()) </span><span style="color:#89ddff;">-&gt; </span><span style="color:#bb9af7;">usize </span><span style="color:#9abdf5;">{
+</span><span style="color:#9abdf5;">    f </span><span style="color:#89ddff;">as </span><span style="color:#bb9af7;">usize  </span><span style="font-style:italic;color:#444b6a;">//~ pointers cannot be cast to integers during const eval
+</span><span style="color:#9abdf5;">}
+</span></code></pre>
+<p>以下のような関数ポインタの呼び出しもできない</p>
+<pre data-lang="rust" style="background-color:#1d1f29;color:#afbad4;" class="language-rust "><code class="language-rust" data-lang="rust"><span style="color:#bb9af7;">const fn </span><span style="color:#7aa2f7;">call_fn_ptr</span><span style="color:#9abdf5;">(</span><span style="color:#e0af68;">f</span><span style="color:#89ddff;">: </span><span style="color:#bb9af7;">fn</span><span style="color:#9abdf5;">()) {
+</span><span style="color:#9abdf5;">    </span><span style="color:#0db9d7;">f</span><span style="color:#9abdf5;">() </span><span style="font-style:italic;color:#444b6a;">//~ function pointers are not allowed in const fn 
+</span><span style="color:#9abdf5;">}
+</span></code></pre>
+<h4 id="const-fn-signatures-can-now-use-impl-trait-in-argument-and-return-position"><a href="https://github.com/rust-lang/rust/pull/93827/">const fn signatures can now use impl Trait in argument and return position</a></h4>
+<p><code>const fn</code>の中でtrait bounds(ジェネリクス境界)を使用できるようになり<code>dyn Trait</code>オブジェクトの受け渡しが可能になった。</p>
+<pre data-lang="rust" style="background-color:#1d1f29;color:#afbad4;" class="language-rust "><code class="language-rust" data-lang="rust"><span style="color:#bb9af7;">const fn </span><span style="color:#7aa2f7;">do_thing</span><span style="color:#89ddff;">&lt;</span><span>T</span><span style="color:#89ddff;">:</span><span> Foo</span><span style="color:#89ddff;">&gt;</span><span style="color:#9abdf5;">(</span><span style="color:#e0af68;">_x</span><span style="color:#89ddff;">: &amp;</span><span>T</span><span style="color:#9abdf5;">) {
+</span><span style="color:#9abdf5;">    </span><span style="font-style:italic;color:#444b6a;">// ...
+</span><span style="color:#9abdf5;">}
+</span></code></pre>
+<p>ただしTraitの関数を<code>const fn</code>として定義できないためTraitの関数呼び出しはできない。</p>
+<h4 id="function-pointers-can-now-be-created-cast-and-passed-around-in-a-const-fn"><a href="https://github.com/rust-lang/rust/pull/93827/">Function pointers can now be created, cast, and passed around in a const fn</a></h4>
+<p><code>const fn</code>の引数と戻り値で<code>impl Trait</code>が使用可能になった。</p>
+<pre data-lang="rust" style="background-color:#1d1f29;color:#afbad4;" class="language-rust "><code class="language-rust" data-lang="rust"><span style="color:#bb9af7;">const fn </span><span style="color:#7aa2f7;">do_thing</span><span style="color:#9abdf5;">(</span><span style="color:#e0af68;">x</span><span style="color:#89ddff;">:</span><span> impl Foo</span><span style="color:#9abdf5;">) </span><span style="color:#89ddff;">-&gt;</span><span> impl Foo </span><span style="color:#9abdf5;">{
+</span><span style="color:#9abdf5;">    x
+</span><span style="color:#9abdf5;">}
+</span></code></pre>
+<p>ただし関連型や関連定数にアクセスする以上のことはできない。</p>
+<h3 id="1-62-0">1.62.0</h3>
+<h4 id="fix-constants-not-getting-dropped-if-part-of-a-diverging-expression"><a href="https://github.com/rust-lang/rust/pull/94775/">Fix constants not getting dropped if part of a diverging expression</a></h4>
+<p>特定の条件でdropが呼ばれないことがあったが修正された。<br />
+以下のコードは<code>cba</code>と出力されるが修正前は<code>ca</code>と出力されていた。</p>
+<pre data-lang="rust" style="background-color:#1d1f29;color:#afbad4;" class="language-rust "><code class="language-rust" data-lang="rust"><span style="color:#bb9af7;">struct </span><span style="color:#c0caf5;">Print</span><span style="color:#9abdf5;">(</span><span style="color:#89ddff;">&amp;</span><span style="font-style:italic;color:#9d7cd8;">&#39;static </span><span style="color:#bb9af7;">str</span><span style="color:#9abdf5;">)</span><span style="color:#89ddff;">;
+</span><span>
+</span><span style="color:#bb9af7;">impl </span><span>Drop </span><span style="color:#89ddff;">for </span><span style="color:#c0caf5;">Print </span><span style="color:#9abdf5;">{
+</span><span style="color:#9abdf5;">    </span><span style="color:#bb9af7;">fn </span><span style="color:#7aa2f7;">drop</span><span style="color:#9abdf5;">(</span><span style="color:#89ddff;">&amp;</span><span style="font-style:italic;color:#9d7cd8;">mut </span><span style="color:#e0af68;">self</span><span style="color:#9abdf5;">) {
+</span><span style="color:#9abdf5;">        println!(</span><span style="color:#89ddff;">&quot;</span><span style="color:#c0caf5;">{}</span><span style="color:#89ddff;">&quot;, </span><span style="color:#f7768e;">self</span><span style="color:#89ddff;">.</span><span style="color:#ff9e64;">0</span><span style="color:#9abdf5;">)</span><span style="color:#89ddff;">;
+</span><span style="color:#9abdf5;">    }
+</span><span style="color:#9abdf5;">}
+</span><span>
+</span><span style="color:#bb9af7;">const</span><span> A</span><span style="color:#89ddff;">:</span><span> Print </span><span style="color:#89ddff;">=</span><span> Print</span><span style="color:#9abdf5;">(</span><span style="color:#89ddff;">&quot;</span><span style="color:#9ece6a;">a</span><span style="color:#89ddff;">&quot;</span><span style="color:#9abdf5;">)</span><span style="color:#89ddff;">;
+</span><span style="color:#bb9af7;">const</span><span> B</span><span style="color:#89ddff;">:</span><span> Print </span><span style="color:#89ddff;">=</span><span> Print</span><span style="color:#9abdf5;">(</span><span style="color:#89ddff;">&quot;</span><span style="color:#9ece6a;">b</span><span style="color:#89ddff;">&quot;</span><span style="color:#9abdf5;">)</span><span style="color:#89ddff;">;
+</span><span>
+</span><span style="color:#bb9af7;">fn </span><span style="color:#7aa2f7;">main</span><span style="color:#9abdf5;">() {
+</span><span style="color:#9abdf5;">    </span><span style="color:#bb9af7;">loop </span><span style="color:#9abdf5;">{
+</span><span style="color:#9abdf5;">        std</span><span style="color:#89ddff;">::</span><span style="color:#9abdf5;">mem</span><span style="color:#89ddff;">::</span><span style="color:#9abdf5;">forget(({A}</span><span style="color:#89ddff;">,</span><span style="color:#9abdf5;"> B</span><span style="color:#89ddff;">,</span><span style="color:#9abdf5;"> Print(</span><span style="color:#89ddff;">&quot;</span><span style="color:#9ece6a;">c</span><span style="color:#89ddff;">&quot;</span><span style="color:#9abdf5;">)</span><span style="color:#89ddff;">, </span><span style="color:#bb9af7;">break</span><span style="color:#9abdf5;">))</span><span style="color:#89ddff;">;
+</span><span style="color:#9abdf5;">    }
+</span><span style="color:#9abdf5;">}
+</span></code></pre>
+<h4 id="const-functions-may-now-specify-extern-c-or-extern-rust"><a href="https://github.com/rust-lang/rust/pull/95346/">const functions may now specify extern &quot;C&quot; or extern &quot;Rust&quot;</a></h4>
+<p>以下のように<code>const fn</code>に<code>extern</code>, <code>extern &quot;C&quot;</code>, <code>extern &quot;Rust&quot;</code>をつけた定義ができるようになった。</p>
+<pre data-lang="rust" style="background-color:#1d1f29;color:#afbad4;" class="language-rust "><code class="language-rust" data-lang="rust"><span style="color:#bb9af7;">const </span><span style="color:#89ddff;">extern </span><span style="color:#bb9af7;">fn </span><span style="color:#7aa2f7;">foo1</span><span style="color:#9abdf5;">() {}
+</span></code></pre>
+<pre data-lang="rust" style="background-color:#1d1f29;color:#afbad4;" class="language-rust "><code class="language-rust" data-lang="rust"><span style="color:#bb9af7;">const </span><span style="color:#89ddff;">extern &quot;</span><span style="color:#9ece6a;">C</span><span style="color:#89ddff;">&quot; </span><span style="color:#bb9af7;">fn </span><span style="color:#7aa2f7;">foo2</span><span style="color:#9abdf5;">() {}
+</span></code></pre>
+<pre data-lang="rust" style="background-color:#1d1f29;color:#afbad4;" class="language-rust "><code class="language-rust" data-lang="rust"><span style="color:#bb9af7;">const </span><span style="color:#89ddff;">extern &quot;</span><span style="color:#9ece6a;">Rust</span><span style="color:#89ddff;">&quot; </span><span style="color:#bb9af7;">fn </span><span style="color:#7aa2f7;">foo3</span><span style="color:#9abdf5;">() {}
+</span></code></pre>
+<pre data-lang="rust" style="background-color:#1d1f29;color:#afbad4;" class="language-rust "><code class="language-rust" data-lang="rust"><span style="color:#bb9af7;">const </span><span style="font-style:italic;color:#9d7cd8;">unsafe </span><span style="color:#89ddff;">extern </span><span style="color:#bb9af7;">fn </span><span style="color:#7aa2f7;">bar1</span><span style="color:#9abdf5;">() {}
+</span></code></pre>
+<pre data-lang="rust" style="background-color:#1d1f29;color:#afbad4;" class="language-rust "><code class="language-rust" data-lang="rust"><span style="color:#bb9af7;">const </span><span style="font-style:italic;color:#9d7cd8;">unsafe </span><span style="color:#89ddff;">extern &quot;</span><span style="color:#9ece6a;">C</span><span style="color:#89ddff;">&quot; </span><span style="color:#bb9af7;">fn </span><span style="color:#7aa2f7;">bar2</span><span style="color:#9abdf5;">() {}
+</span></code></pre>
+<pre data-lang="rust" style="background-color:#1d1f29;color:#afbad4;" class="language-rust "><code class="language-rust" data-lang="rust"><span style="color:#bb9af7;">const </span><span style="font-style:italic;color:#9d7cd8;">unsafe </span><span style="color:#89ddff;">extern &quot;</span><span style="color:#9ece6a;">Rust</span><span style="color:#89ddff;">&quot; </span><span style="color:#bb9af7;">fn </span><span style="color:#7aa2f7;">bar3</span><span style="color:#9abdf5;">() {}
+</span></code></pre>
+<h3 id="1-66-0">1.66.0</h3>
+<h4 id="change-constant-evaluation-errors-from-a-deny-by-default-lint-to-a-hard-error"><a href="https://github.com/rust-lang/rust/pull/102091/">Change constant evaluation errors from a deny-by-default lint to a hard error</a></h4>
+<p>定数文脈の評価時のエラーをリントのdenyからコンパイルエラーに変更した。</p>
+<h2 id="stabilized-apis">Stabilized APIs</h2>
+<p>以下のAPIが安定化した。</p>
+<h4 id="1-65-0">1.65.0</h4>
+<ul>
+<li><a href="https://doc.rust-lang.org/stable/std/primitive.pointer.html#method.cast_mut"><code>&lt;*const T&gt;::cast_mut</code></a></li>
+<li><a href="https://doc.rust-lang.org/stable/std/primitive.pointer.html#method.cast_const"><code>&lt;*mut T&gt;::cast_const</code></a></li>
+</ul>
+<h3 id="these-apis-are-now-usable-in-const-contexts">These APIs are now usable in const contexts:</h3>
+<p>以下のAPIが定数文脈で使用可能になった。</p>
+<h4 id="1-58-0-1">1.58.0</h4>
+<ul>
+<li><a href="https://doc.rust-lang.org/stable/std/time/struct.Duration.html#method.new"><code>Duration::new</code></a></li>
+<li><a href="https://doc.rust-lang.org/std/time/struct.Duration.html#method.checked_add"><code>Duration::checked_add</code></a></li>
+<li><a href="https://doc.rust-lang.org/std/time/struct.Duration.html#method.saturating_add"><code>Duration::saturating_add</code></a></li>
+<li><a href="https://doc.rust-lang.org/std/time/struct.Duration.html#method.checked_sub"><code>Duration::checked_sub</code></a></li>
+<li><a href="https://doc.rust-lang.org/std/time/struct.Duration.html#method.saturating_sub"><code>Duration::saturating_sub</code></a></li>
+<li><a href="https://doc.rust-lang.org/std/time/struct.Duration.html#method.checked_mul"><code>Duration::checked_mul</code></a></li>
+<li><a href="https://doc.rust-lang.org/std/time/struct.Duration.html#method.saturating_mul"><code>Duration::saturating_mul</code></a></li>
+<li><a href="https://doc.rust-lang.org/std/time/struct.Duration.html#method.checked_div"><code>Duration::checked_div</code></a></li>
+</ul>
+<h4 id="1-61-0-1">1.61.0</h4>
+<ul>
+<li><a href="https://doc.rust-lang.org/stable/std/primitive.pointer.html#method.offset"><code>&lt;*const T&gt;::offset</code> and <code>&lt;*mut T&gt;::offset</code></a></li>
+<li><a href="https://doc.rust-lang.org/stable/std/primitive.pointer.html#method.wrapping_offset"><code>&lt;*const T&gt;::wrapping_offset</code> and <code>&lt;*mut T&gt;::wrapping_offset</code></a></li>
+<li><a href="https://doc.rust-lang.org/stable/std/primitive.pointer.html#method.add"><code>&lt;*const T&gt;::add</code> and <code>&lt;*mut T&gt;::add</code></a></li>
+<li><a href="https://doc.rust-lang.org/stable/std/primitive.pointer.html#method.sub"><code>&lt;*const T&gt;::sub</code> and <code>&lt;*mut T&gt;::sub</code></a></li>
+<li><a href="https://doc.rust-lang.org/stable/std/primitive.pointer.html#method.wrapping_add"><code>&lt;*const T&gt;::wrapping_add</code> and <code>&lt;*mut T&gt;::wrapping_add</code></a></li>
+<li><a href="https://doc.rust-lang.org/stable/std/primitive.pointer.html#method.wrapping_sub"><code>&lt;*const T&gt;::wrapping_sub</code> and <code>&lt;*mut T&gt;::wrapping_sub</code></a></li>
+<li><a href="https://doc.rust-lang.org/stable/std/primitive.slice.html#method.as_mut_ptr"><code>&lt;[T]&gt;::as_mut_ptr</code></a></li>
+<li><a href="https://doc.rust-lang.org/stable/std/primitive.slice.html#method.as_ptr_range"><code>&lt;[T]&gt;::as_ptr_range</code></a></li>
+<li><a href="https://doc.rust-lang.org/stable/std/primitive.slice.html#method.as_mut_ptr_range"><code>&lt;[T]&gt;::as_mut_ptr_range</code></a></li>
+</ul>
+<h4 id="1-63-0">1.63.0</h4>
+<ul>
+<li><a href="https://doc.rust-lang.org/stable/std/array/fn.from_ref.html"><code>array::from_ref</code></a></li>
+<li><a href="https://doc.rust-lang.org/stable/std/slice/fn.from_ref.html"><code>slice::from_ref</code></a></li>
+<li><a href="https://doc.rust-lang.org/stable/std/intrinsics/fn.copy.html"><code>intrinsics::copy</code></a></li>
+<li><a href="https://doc.rust-lang.org/stable/std/intrinsics/fn.copy_nonoverlapping.html"><code>intrinsics::copy_nonoverlapping</code></a></li>
+<li><a href="https://doc.rust-lang.org/stable/std/primitive.pointer.html#method.copy_to"><code>&lt;*const T&gt;::copy_to</code></a></li>
+<li><a href="https://doc.rust-lang.org/stable/std/primitive.pointer.html#method.copy_to_nonoverlapping"><code>&lt;*const T&gt;::copy_to_nonoverlapping</code></a></li>
+<li><a href="https://doc.rust-lang.org/stable/std/primitive.pointer.html#method.copy_to-1"><code>&lt;*mut T&gt;::copy_to</code></a></li>
+<li><a href="https://doc.rust-lang.org/stable/std/primitive.pointer.html#method.copy_to_nonoverlapping-1"><code>&lt;*mut T&gt;::copy_to_nonoverlapping</code></a></li>
+<li><a href="https://doc.rust-lang.org/stable/std/primitive.pointer.html#method.copy_from"><code>&lt;*mut T&gt;::copy_from</code></a></li>
+<li><a href="https://doc.rust-lang.org/stable/std/primitive.pointer.html#method.copy_from_nonoverlapping"><code>&lt;*mut T&gt;::copy_from_nonoverlapping</code></a></li>
+<li><a href="https://doc.rust-lang.org/stable/std/str/fn.from_utf8.html"><code>str::from_utf8</code></a></li>
+<li><a href="https://doc.rust-lang.org/stable/std/str/struct.Utf8Error.html#method.error_len"><code>Utf8Error::error_len</code></a></li>
+<li><a href="https://doc.rust-lang.org/stable/std/str/struct.Utf8Error.html#method.valid_up_to"><code>Utf8Error::valid_up_to</code></a></li>
+<li><a href="https://doc.rust-lang.org/stable/std/sync/struct.Condvar.html#method.new"><code>Condvar::new</code></a></li>
+<li><a href="https://doc.rust-lang.org/stable/std/sync/struct.Mutex.html#method.new"><code>Mutex::new</code></a></li>
+<li><a href="https://doc.rust-lang.org/stable/std/sync/struct.RwLock.html#method.new"><code>RwLock::new</code></a></li>
+</ul>
+<h4 id="1-64-0">1.64.0</h4>
+<ul>
+<li><a href="https://doc.rust-lang.org/stable/core/slice/fn.from_raw_parts.html"><code>slice::from_raw_parts</code></a></li>
+</ul>
+<h4 id="1-65-0-1">1.65.0</h4>
+<ul>
+<li><a href="https://doc.rust-lang.org/stable/std/primitive.pointer.html#method.offset_from"><code>&lt;*const T&gt;::offset_from</code></a></li>
+</ul>
+<h3 id="const-stable">Const-stable:</h3>
+<p>以下のAPIが定数文脈でも使用可能になった。</p>
+<h4 id="1-59-0-1">1.59.0</h4>
+<ul>
+<li><a href="https://doc.rust-lang.org/stable/std/mem/union.MaybeUninit.html#method.as_ptr"><code>mem::MaybeUninit::as_ptr</code></a></li>
+<li><a href="https://doc.rust-lang.org/stable/std/mem/union.MaybeUninit.html#method.assume_init"><code>mem::MaybeUninit::assume_init</code></a></li>
+<li><a href="https://doc.rust-lang.org/stable/std/mem/union.MaybeUninit.html#method.assume_init_ref"><code>mem::MaybeUninit::assume_init_ref</code></a></li>
+<li><a href="https://doc.rust-lang.org/stable/std/ffi/struct.CStr.html#method.from_bytes_with_nul_unchecked"><code>ffi::CStr::from_bytes_with_nul_unchecked</code></a></li>
+</ul>
+<h2 id="compatibility-notes">Compatibility Notes</h2>
+<h3 id="1-64-0-1">1.64.0</h3>
+<h4 id="errors-at-const-eval-time-are-now-in-future-incompatibility-reports"><a href="https://github.com/rust-lang/rust/pull/97743/">Errors at const-eval time are now in future incompatibility reports</a></h4>
+<p>将来的に定数文脈の評価時のエラーをリントのdenyからコンパイルエラーに変更するのでその前に将来エラーになるということを表示する。<br />
+補足: これは1.66.0の更新内容の<a href="https://github.com/rust-lang/rust/pull/102091/">Change constant evaluation errors from a deny-by-default lint to a hard error</a>の前段階の更新です。</p>
+</div>
+</section>
+
+
+  </main>
+  <footer>
+    blocks note
+    
+    
+    
+  </footer>
+</body>

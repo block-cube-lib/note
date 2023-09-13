@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<head>
+  <title>
+    
+      DCCツールの補助骨システムをUnityで動かす - BurstとJob Systemの活用事例 - blocks note
+    
+  </title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" type="text/css" href="https://block-cube-lib.github.io/note/style.css">
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700&family=Source+Code+Pro:ital,wght@0,400;0,500;0,700;1,400;1,500;1,700&display=swap" rel="stylesheet">
+</head>
+<body>
+  <header class="header">
+      <div class="top">
+        <a href="https:&#x2F;&#x2F;block-cube-lib.github.io&#x2F;note">blocks note</a>
+      </div>
+  </header>
+  <nav class="container">
+    <h2><a href="https:&#x2F;&#x2F;block-cube-lib.github.io&#x2F;note/categories">Categories</a></h2>
+    <ul>
+      <li><a href="https:&#x2F;&#x2F;block-cube-lib.github.io&#x2F;note/categories/book">Book</a></li>
+      <li><a href="https:&#x2F;&#x2F;block-cube-lib.github.io&#x2F;note/categories/video">Video</a></li>
+      <li><a href="https:&#x2F;&#x2F;block-cube-lib.github.io&#x2F;note/categories/conference">Conference</a></li>
+      <li><a href="https:&#x2F;&#x2F;block-cube-lib.github.io&#x2F;note/categories/memo">Memo</a></li>
+    </ul>
+    <h2><a href="https:&#x2F;&#x2F;block-cube-lib.github.io&#x2F;note/tags">Tags</a></h2>
+  </nav>
+  <main class="container">
+    
+
+<h1 class="title">
+  DCCツールの補助骨システムをUnityで動かす - BurstとJob Systemの活用事例
+</h1>
+<section class="update_history">
+  <table>
+    <tr>
+      <td>
+  <span class = "date">2023&#x2F;08&#x2F;29 11:26</span>
+</td>
+      <td>作成</td>
+    </tr>
+    
+  </table>
+</section>
+<section class="published_at">
+  <table>
+    
+    
+  </table>
+</section>
+<div>
+  categories: 
+<span class = "categories">
+  
+  
+<span class = "categories-label"><a href="https://block-cube-lib.github.io/note/categories/conference/">Conference</a></span>
+
+  
+</span>
+
+</div>
+<div>
+  tags: 
+<span class = "tags">
+  
+  
+<span class = "tags-label"><a href="https://block-cube-lib.github.io/note/tags/bone/">Bone</a></span>
+
+  
+  
+<span class = "tags-label"><a href="https://block-cube-lib.github.io/note/tags/burst/">Burst</a></span>
+
+  
+  
+<span class = "tags-label"><a href="https://block-cube-lib.github.io/note/tags/cedec/">CEDEC</a></span>
+
+  
+  
+<span class = "tags-label"><a href="https://block-cube-lib.github.io/note/tags/cedec2023/">CEDEC2023</a></span>
+
+  
+  
+<span class = "tags-label"><a href="https://block-cube-lib.github.io/note/tags/job-system/">Job System</a></span>
+
+  
+  
+<span class = "tags-label"><a href="https://block-cube-lib.github.io/note/tags/unity/">Unity</a></span>
+
+  
+  
+<span class = "tags-label"><a href="https://block-cube-lib.github.io/note/tags/unsafe-c/">unsafe C#</a></span>
+
+  
+</span>
+
+</div>
+<section class="links">
+  
+</section>
+<section class="page">
+  <aside>
+    
+<ul>
+   
+  <li><a href="#setusiyongai-yao">セッション概要</a></li>
+  <ul>
+     
+    <li><a href="#jiang-yan-xing-shi">講演形式</a></li>
+    <ul>
+      
+    </ul>
+     
+    <li><a href="#jiang-yan-shi-jian">講演時間</a></li>
+    <ul>
+      
+    </ul>
+     
+    <li><a href="#jiang-yan-rumu">講演ルーム</a></li>
+    <ul>
+      
+    </ul>
+     
+    <li><a href="#shou-jiang-sukiru">受講スキル</a></li>
+    <ul>
+      
+    </ul>
+     
+    <li><a href="#de-rareruzhi-jian">得られる知見</a></li>
+    <ul>
+      
+    </ul>
+     
+    <li><a href="#setusiyonnonei-rong">セッションの内容</a></li>
+    <ul>
+      
+    </ul>
+    
+  </ul>
+   
+  <li><a href="#suo-gan">所感</a></li>
+  <ul>
+    
+  </ul>
+   
+  <li><a href="#memo">メモ</a></li>
+  <ul>
+     
+    <li><a href="#unsafe-c-ji-chu">unsafe C# 基礎</a></li>
+    <ul>
+      
+    </ul>
+     
+    <li><a href="#shi-zhuang">実装</a></li>
+    <ul>
+      
+    </ul>
+     
+    <li><a href="#burst-direct-call">Burst Direct Call</a></li>
+    <ul>
+      
+    </ul>
+     
+    <li><a href="#high-performance-c-hpc">High Performance C#(HPC)</a></li>
+    <ul>
+      
+    </ul>
+    
+  </ul>
+   
+  <li><a href="#zhi-yi-ying-da">質疑応答</a></li>
+  <ul>
+    
+  </ul>
+  
+</ul>
+
+  </aside>
+  <div class="page-content"><h1 id="setusiyongai-yao">セッション概要</h1>
+<h2 id="jiang-yan-xing-shi">講演形式</h2>
+<p>レギュラーセッション</p>
+<h2 id="jiang-yan-shi-jian">講演時間</h2>
+<p>08月24日(木) 14:50 〜 15:50</p>
+<h2 id="jiang-yan-rumu">講演ルーム</h2>
+<p>第2会場</p>
+<h2 id="shou-jiang-sukiru">受講スキル</h2>
+<p>最低限、何らかのプログラミング経験と3Dツールの使用経験が必要です。
+UnityでのC#プログラミング経験が少しでもあると、より理解が深まります。</p>
+<h2 id="de-rareruzhi-jian">得られる知見</h2>
+<ul>
+<li>Unity でのアニメーション制御</li>
+<li>Unity の C# で高速なプログラムを書くコツ</li>
+<li>Burst + Mathematics の活用事例</li>
+<li>C# Job System の活用事例</li>
+<li>Animation C# Jobs の活用事例</li>
+</ul>
+<h2 id="setusiyonnonei-rong">セッションの内容</h2>
+<p>弊社の様々なタイトルで利用されている補助骨システム KineDriver における Unity ランタイムの開発事例についてお話します。このシステムは、Maya、Motion Builder、Unreal Engine、そしていくつかの内製エンジンで動作し、それらは全て C++ で実装されています。しかし、Unity では全てを C# でフロムスクラッチ実装しました。当初は C# で十分な実行速度が出せるのか不安でしたが、結果として C++ 実装に全く劣らない性能を達成できました。その鍵になったのが Unity の Burst と C# Job System です。
+本セッションでは、補助骨システムの開発事例を通して、Unity のこれらの技術を活用した C# プログラミングについて解説します。</p>
+<h1 id="suo-gan">所感</h1>
+<ul>
+<li>Boneを自前計算で処理するためにUnity/C#でどのようにすれば高速化できるのかを知れた</li>
+<li>実務でjobを使用するときに何がボトルネックになるのかが知れた</li>
+<li>Burstを使いたいけどサイズ不定なときの対応を知れた</li>
+<li>wizzleという(モノは知っているが名称を知らなかった)名前をを聞いたのが嬉しかった</li>
+</ul>
+<p>補助骨の計算を自前でやるときにJob Systemをどのように使えばよいかが知れた。<br />
+またMayaとUnityで並列化するときの単位が異なること、その方が効率がよいことを知れた。<br />
+BurstやJob Systemは個人的にでも使用したことがないため、置いていかれないように触っておくべきだと感じた。<br />
+今回の講演であったTransformAccessで時間がかかるので自前で保持、計算して最後にまとめて書き込むほうがよいというような知識はもっと持っておきたい。</p>
+<h1 id="memo">メモ</h1>
+<ul>
+<li>概要
+<ul>
+<li>どのような実装が必要か</li>
+<li>Unityでの開発</li>
+</ul>
+</li>
+<li>Unity unsafe C# 基礎</li>
+<li>実装
+<ul>
+<li>KDIアセットデータ</li>
+<li>MTコンポーネント</li>
+<li>Jobコンポーネント</li>
+<li>Playableコンポーネント</li>
+</ul>
+</li>
+<li>負荷計測とまとめ</li>
+</ul>
+<hr />
+<p>CEDEC2019で説明したKineDriverの話</p>
+<p>KDI(補助骨アセット)
+MayaからFBXとKDIを出力してUnityにインポート</p>
+<p>Mayaでは骨ごとに並列計算しているがUnityではキャラクター単位で並列計算する</p>
+<hr />
+<p>C#で書くかC++で書くか(DLL)</p>
+<p>C#で書く<br />
+共通ライブラリなどはなくリファレンス実装があるのみだったので問題にならない</p>
+<p>UnityとC#が初なので混乱<br />
+段階を踏む</p>
+<hr />
+<p>ECSは当時Experimentalだったので考慮しない</p>
+<hr />
+<h2 id="unsafe-c-ji-chu">unsafe C# 基礎</h2>
+<p>structを使用する<br />
+structは値型なのでGCの影響を受けない</p>
+<p>コピーに関して</p>
+<ul>
+<li>classは参照型なので参照をコピーする</li>
+<li>structは値型なので値をコピーする</li>
+</ul>
+<p><code>in</code>は効率が悪くなることがある(「防衛的コピー」で調べる)</p>
+<hr />
+<p>fixedでポインタを固定する</p>
+<hr />
+<p>unsafe許可はプロジェクト全体になってしまうためアセンブリ定義するのがよい</p>
+<hr />
+<p>Enumはclassと同じように参照型になる</p>
+<hr />
+<h2 id="shi-zhuang">実装</h2>
+<p>KDIのアセット, インポーター, アセットのInspector UI, インポーターののInspector UI</p>
+<hr />
+<p>SerializeReferenceで抽象clsassやinterfaceをシリアライズできる
+処理のカスタマイズ</p>
+<ul>
+<li>interface ISerialziationCallbackReceiverを継承・実装</li>
+<li>本来の用途と異なるが、ホットリロードの対応に用いた</li>
+</ul>
+<hr />
+<p>ノードデータ配列はstructで実装したいが困難なので内部でデータをできるだけstructに詰めている</p>
+<hr />
+<p>実装いろいろ</p>
+<hr />
+<h2 id="burst-direct-call">Burst Direct Call</h2>
+<p>Job SystemでなくてもBurstを使える
+class/structとstatic methodの両方に<code>[BurstCompile]</code>をつける</p>
+<hr />
+<h2 id="high-performance-c-hpc">High Performance C#(HPC)</h2>
+<p>いろいろ使えない<br />
+Unity.Mathmaticsが使える!</p>
+<hr />
+<p>IJob, IJobParallelFor, IJobParallelForTransform</p>
+<hr />
+<p>KineDriverの場合IJobParallelForTransformを使用</p>
+<hr />
+<p>ボトルネック改善</p>
+<ul>
+<li>Jobの数を減らす</li>
+<li>ジョブの中のTransformのOutputを減らす</li>
+</ul>
+<hr />
+<p>速度アップに有効だったこと</p>
+<hr />
+<p>Playable API</p>
+<ul>
+<li>PlayableGraphはUnityの内部で使われている</li>
+<li>可視化ツールが提供されている</li>
+</ul>
+<hr />
+<p>まとめ</p>
+<ul>
+<li>Burstは、関数単位ですぐに使えるので手軽で便利</li>
+<li>Jobにすると、さらにBurstが効率的に使える。</li>
+<li>Jobのオーバーヘッドは結構あるので、Job数を少なく抑えるのが効果的</li>
+<li>Transformアクセスを少なく抑えるのが効果的だった</li>
+<li>ただのJobにするかPlayableにするかは、利用状況で選択</li>
+<li>Playableはコンポージェント単体の負荷はJobと大差ないものの、Optimize Transform Hierarchyできる意味が大きい。</li>
+<li>将来の公式ECS-based Animationにも期待</li>
+</ul>
+<hr />
+<h1 id="zhi-yi-ying-da">質疑応答</h1>
+<ul>
+<li>非一様スケーリングするとその子のスケールはおかしくなるよ</li>
+</ul>
+</div>
+</section>
+
+
+  </main>
+  <footer>
+    blocks note
+    
+    
+    
+  </footer>
+</body>

@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<head>
+  <title>
+    
+      リーダブルコード - blocks note
+    
+  </title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" type="text/css" href="https://block-cube-lib.github.io/note/style.css">
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700&family=Source+Code+Pro:ital,wght@0,400;0,500;0,700;1,400;1,500;1,700&display=swap" rel="stylesheet">
+</head>
+<body>
+  <header class="header">
+      <div class="top">
+        <a href="https:&#x2F;&#x2F;block-cube-lib.github.io&#x2F;note">blocks note</a>
+      </div>
+  </header>
+  <nav class="container">
+    <h2><a href="https:&#x2F;&#x2F;block-cube-lib.github.io&#x2F;note/categories">Categories</a></h2>
+    <ul>
+      <li><a href="https:&#x2F;&#x2F;block-cube-lib.github.io&#x2F;note/categories/book">Book</a></li>
+      <li><a href="https:&#x2F;&#x2F;block-cube-lib.github.io&#x2F;note/categories/video">Video</a></li>
+      <li><a href="https:&#x2F;&#x2F;block-cube-lib.github.io&#x2F;note/categories/conference">Conference</a></li>
+      <li><a href="https:&#x2F;&#x2F;block-cube-lib.github.io&#x2F;note/categories/memo">Memo</a></li>
+    </ul>
+    <h2><a href="https:&#x2F;&#x2F;block-cube-lib.github.io&#x2F;note/tags">Tags</a></h2>
+  </nav>
+  <main class="container">
+    
+
+<h1 class="title">
+  リーダブルコード
+</h1>
+<section class="update_history">
+  <table>
+    <tr>
+      <td>
+  <span class = "date">2022&#x2F;12&#x2F;14 00:00</span>
+</td>
+      <td>作成</td>
+    </tr>
+    
+  </table>
+</section>
+<section class="published_at">
+  <table>
+    
+    
+  </table>
+</section>
+<div>
+  categories: 
+<span class = "categories">
+  
+  
+<span class = "categories-label"><a href="https://block-cube-lib.github.io/note/categories/book/">Book</a></span>
+
+  
+</span>
+
+</div>
+<div>
+  tags: 
+<span class = "tags">
+  
+  
+<span class = "tags-label"><a href="https://block-cube-lib.github.io/note/tags/coding/">Coding</a></span>
+
+  
+</span>
+
+</div>
+<section class="links">
+  
+</section>
+<section class="page">
+  <aside>
+    
+<ul>
+   
+  <li><a href="#di-iibu-ruputorozitukunodan-chun-hua">第Ⅱ部 ループとロジックの単純化</a></li>
+  <ul>
+     
+    <li><a href="#7zhang-zhi-yu-hurowodu-miyasukusuru">7章 制御フローを読みやすくする</a></li>
+    <ul>
+      
+      <li><a href="#tiao-jian-shi-nobing-bishun">条件式の並び順</a></li>
+      <ul>
+        
+      </ul>
+      
+      <li><a href="#if-else-burotukunobing-bishun">if&#x2F;else ブロックの並び順</a></li>
+      <ul>
+        
+      </ul>
+      
+      <li><a href="#san-xiang-yan-suan-zi">三項演算子</a></li>
+      <ul>
+        
+      </ul>
+      
+      <li><a href="#do-whilerupuwobi-keru">do&#x2F;whileループを避ける</a></li>
+      <ul>
+        
+      </ul>
+      
+      <li><a href="#guan-shu-karazao-kufan-su">関数から早く返す</a></li>
+      <ul>
+        
+      </ul>
+      
+      <li><a href="#e-ming-gao-kigoto">悪名高きgoto</a></li>
+      <ul>
+        
+      </ul>
+      
+      <li><a href="#nesutowoqian-kusuru">ネストを浅くする</a></li>
+      <ul>
+        
+      </ul>
+      
+      <li><a href="#shi-xing-noliu-rewozhong-erukai">実行の流れを終えるかい？</a></li>
+      <ul>
+        
+      </ul>
+      
+      <li><a href="#matome">まとめ</a></li>
+      <ul>
+        
+      </ul>
+      
+    </ul>
+     
+    <li><a href="#8zhang-ju-da-nashi-wofen-ge-suru">8章 巨大な式を分割する</a></li>
+    <ul>
+      
+      <li><a href="#shuo-ming-bian-shu">説明変数</a></li>
+      <ul>
+        
+      </ul>
+      
+      <li><a href="#yao-yue-bian-shu">要約変数</a></li>
+      <ul>
+        
+      </ul>
+      
+      <li><a href="#domorugannofa-ze-woshi-u">ド・モルガンの法則を使う</a></li>
+      <ul>
+        
+      </ul>
+      
+      <li><a href="#duan-luo-ping-jia-noe-yong">短絡評価の悪用</a></li>
+      <ul>
+        
+      </ul>
+      
+    </ul>
+    
+  </ul>
+  
+</ul>
+
+  </aside>
+  <div class="page-content"><h1 id="di-iibu-ruputorozitukunodan-chun-hua">第Ⅱ部 ループとロジックの単純化</h1>
+<h2 id="7zhang-zhi-yu-hurowodu-miyasukusuru">7章 制御フローを読みやすくする</h2>
+<h3 id="tiao-jian-shi-nobing-bishun">条件式の並び順</h3>
+<p><code>if (length &lt;= 10)</code>のほうが<code>if (10 &gt;= length)</code>　よりも<br />
+<code>while (bytes_received &lt; bytes_expected)</code>のほうが<code>while (bytes_expected &gt; bytes_received)</code>よりも<br />
+読みやすい。</p>
+<p>左側は「捜査対象」の式。変化するもの<br />
+右側は「比較対象」の式で変化しない。</p>
+<p>個人的には数直線上の並びになることを意識していたけれど読みやすさで考えたほうがいい場面は多そう。</p>
+<h3 id="if-else-burotukunobing-bishun">if/else ブロックの並び順</h3>
+<ul>
+<li>条件は否定形よりも肯定形を使う</li>
+<li>単純な条件を先に書く</li>
+<li>関心を引く条件や目立つ条件を先に書く</li>
+</ul>
+<p>ただしこの優劣は衝突することもある。<br />
+否定形であってもやん順で関心や注意を引く場合もある。その場合は先に処理する法が良い。</p>
+<h3 id="san-xiang-yan-suan-zi">三項演算子</h3>
+<p>良いときも悪いときもある。<br />
+コードの長さではなく読みやすさを優先する。</p>
+<h3 id="do-whilerupuwobi-keru">do/whileループを避ける</h3>
+<p>ループの中身をみてから条件を見ることになるのでコード読む手間が増えるし理解しづらい。<br />
+あとこんな場合はどうなるかとか分かりづらい。</p>
+<pre data-lang="c" style="background-color:#1d1f29;color:#afbad4;" class="language-c "><code class="language-c" data-lang="c"><span style="color:#bb9af7;">do </span><span style="color:#9abdf5;">{
+</span><span style="color:#9abdf5;">    </span><span style="font-style:italic;color:#bb9af7;">continue</span><span style="color:#89ddff;">;
+</span><span style="color:#9abdf5;">} </span><span style="color:#bb9af7;">while </span><span style="color:#9abdf5;">(</span><span style="color:#ff9e64;">false</span><span style="color:#9abdf5;">)</span><span style="color:#89ddff;">;
+</span></code></pre>
+<p>ビャーネ・ストロヴストルップもdo-statementを避けるらしい。</p>
+<h3 id="guan-shu-karazao-kufan-su">関数から早く返す</h3>
+<p>早期returnの話。</p>
+<blockquote>
+<p>関数で複数の return 文を使ってはいけないと思っている人がいる。アホくさ。</p>
+</blockquote>
+<p>わかる<br />
+そもそも関数の出口を一つにしたいのはクリーンアップの処理を確実に実行したいから。Cではスコープを抜けたときの処理とか書けなかったけどC++ならデストラクタ、C#ならusingがあるので問題ない。</p>
+<h3 id="e-ming-gao-kigoto">悪名高きgoto</h3>
+<p>上から下へかつ飛び先が1つならOK。複数の飛び先とか下から上とかの<code>goto</code>はやめておけ。<br />
+そもそもC言語以外は必要ない。代わりになるもっとわかりやすい機能がある。</p>
+<h3 id="nesutowoqian-kusuru">ネストを浅くする</h3>
+<p>早期<code>return</code>や<code>continue</code>を使用してネストを練らす</p>
+<h3 id="shi-xing-noliu-rewozhong-erukai">実行の流れを終えるかい？</h3>
+<p>コードの流れがかんたんに負えなくなる要素</p>
+<ul>
+<li>スレッド</li>
+<li>シグナル/割り込みハンドラ</li>
+<li>例外</li>
+<li>関数ポインタと無名関数</li>
+<li>仮想メソッド</li>
+</ul>
+<h3 id="matome">まとめ</h3>
+<ul>
+<li>比較を書くときは変化する値を左に</li>
+<li>if/else文のブロックは適切に並び替える
+<ul>
+<li>一般的には、肯定形・単純・目立つものを先に処理</li>
+</ul>
+</li>
+<li>三項演算子, do/while, gotoなどで読みにくくなることが多い
+<ul>
+<li>代替がある</li>
+</ul>
+</li>
+<li>ネストしたコードを追うのに集中力がいる
+<ul>
+<li>早めに返す(returnする)</li>
+<li>「ガード節」(関数の上部で単純な条件を先に処理する)を使用する</li>
+</ul>
+</li>
+</ul>
+<h2 id="8zhang-ju-da-nashi-wofen-ge-suru">8章 巨大な式を分割する</h2>
+<p>人間は一度に3~4の「もの」しか考えられない。コードの式が大きくなれば理解が難しくなる。</p>
+<h3 id="shuo-ming-bian-shu">説明変数</h3>
+<pre style="background-color:#1d1f29;color:#afbad4;"><code><span>if line.split(&#39;:&#39;)[0].strip() == &quot;root&quot;:
+</span></code></pre>
+<pre style="background-color:#1d1f29;color:#afbad4;"><code><span>username = line.split(&#39;:&#39;)[0].strip()
+</span><span>if username == &quot;root&quot;:
+</span></code></pre>
+<h3 id="yao-yue-bian-shu">要約変数</h3>
+<pre data-lang="cpp" style="background-color:#1d1f29;color:#afbad4;" class="language-cpp "><code class="language-cpp" data-lang="cpp"><span style="color:#bb9af7;">if </span><span style="color:#9abdf5;">(</span><span>request</span><span style="color:#89ddff;">.</span><span style="color:#c0caf5;">user</span><span style="color:#89ddff;">.</span><span style="color:#c0caf5;">id </span><span style="color:#bb9af7;">==</span><span> document</span><span style="color:#89ddff;">.</span><span style="color:#c0caf5;">owner_id</span><span style="color:#9abdf5;">) {
+</span><span style="color:#9abdf5;">  </span><span style="font-style:italic;color:#444b6a;">// 編集可能
+</span><span style="color:#9abdf5;">}
+</span><span>
+</span><span style="color:#bb9af7;">if </span><span style="color:#9abdf5;">(</span><span>request</span><span style="color:#89ddff;">.</span><span style="color:#c0caf5;">user</span><span style="color:#89ddff;">.</span><span style="color:#c0caf5;">id </span><span style="color:#bb9af7;">!=</span><span> document</span><span style="color:#89ddff;">.</span><span style="color:#c0caf5;">owner_id</span><span style="color:#9abdf5;">) {
+</span><span style="color:#9abdf5;">  </span><span style="font-style:italic;color:#444b6a;">// 読み取り専用
+</span><span style="color:#9abdf5;">}
+</span></code></pre>
+<pre data-lang="cpp" style="background-color:#1d1f29;color:#afbad4;" class="language-cpp "><code class="language-cpp" data-lang="cpp"><span style="color:#bb9af7;">bool</span><span> user_owns_document </span><span style="color:#89ddff;">=</span><span> request</span><span style="color:#89ddff;">.</span><span style="color:#c0caf5;">user</span><span style="color:#89ddff;">.</span><span style="color:#c0caf5;">id </span><span style="color:#bb9af7;">==</span><span> document</span><span style="color:#89ddff;">.</span><span style="color:#c0caf5;">owner_id</span><span style="color:#89ddff;">;
+</span><span style="color:#bb9af7;">if </span><span style="color:#9abdf5;">(</span><span>user_owns_document</span><span style="color:#9abdf5;">) {
+</span><span style="color:#9abdf5;">  </span><span style="font-style:italic;color:#444b6a;">// 編集可能
+</span><span style="color:#9abdf5;">}
+</span><span>
+</span><span style="color:#bb9af7;">if </span><span style="color:#9abdf5;">(</span><span style="color:#89ddff;">!</span><span>user_owns_document</span><span style="color:#9abdf5;">) {
+</span><span style="color:#9abdf5;">  </span><span style="font-style:italic;color:#444b6a;">// 読み取り専用
+</span><span style="color:#9abdf5;">}
+</span></code></pre>
+<h3 id="domorugannofa-ze-woshi-u">ド・モルガンの法則を使う</h3>
+<pre data-lang="cpp" style="background-color:#1d1f29;color:#afbad4;" class="language-cpp "><code class="language-cpp" data-lang="cpp"><span style="color:#bb9af7;">if </span><span style="color:#9abdf5;">(</span><span style="color:#89ddff;">!</span><span style="color:#9abdf5;">(</span><span>file_exists </span><span style="color:#89ddff;">&amp;&amp; !</span><span>is_protected</span><span style="color:#9abdf5;">)) { </span><span style="color:#7aa2f7;">Error</span><span style="color:#9abdf5;">(</span><span style="color:#89ddff;">&quot;</span><span style="color:#9ece6a;">could not readi file</span><span style="color:#89ddff;">&quot;</span><span style="color:#9abdf5;">)</span><span style="color:#89ddff;">; </span><span style="color:#9abdf5;">}
+</span></code></pre>
+<pre data-lang="cpp" style="background-color:#1d1f29;color:#afbad4;" class="language-cpp "><code class="language-cpp" data-lang="cpp"><span style="color:#bb9af7;">if </span><span style="color:#9abdf5;">(</span><span style="color:#89ddff;">!</span><span>file_exists </span><span style="color:#89ddff;">||</span><span> is_protected</span><span style="color:#9abdf5;">) { </span><span style="color:#7aa2f7;">Error</span><span style="color:#9abdf5;">(</span><span style="color:#89ddff;">&quot;</span><span style="color:#9ece6a;">could not readi file</span><span style="color:#89ddff;">&quot;</span><span style="color:#9abdf5;">)</span><span style="color:#89ddff;">; </span><span style="color:#9abdf5;">}
+</span></code></pre>
+<h3 id="duan-luo-ping-jia-noe-yong">短絡評価の悪用</h3>
+<pre data-lang="cpp" style="background-color:#1d1f29;color:#afbad4;" class="language-cpp "><code class="language-cpp" data-lang="cpp"><span style="color:#bb9af7;">if </span><span style="color:#9abdf5;">(</span><span>a </span><span style="color:#89ddff;">||</span><span> b</span><span style="color:#9abdf5;">)
+</span></code></pre>
+<p>aがtrueならbは評価されない。これを悪用すると複雑なロジックになる</p>
+<pre data-lang="cpp" style="background-color:#1d1f29;color:#afbad4;" class="language-cpp "><code class="language-cpp" data-lang="cpp"><span style="color:#7aa2f7;">assert</span><span style="color:#9abdf5;">((</span><span style="color:#89ddff;">!</span><span style="color:#9abdf5;">(</span><span style="color:#7aa2f7;">bucket </span><span style="color:#89ddff;">= </span><span style="color:#7aa2f7;">FindBucket</span><span style="color:#9abdf5;">(</span><span style="color:#7aa2f7;">key</span><span style="color:#9abdf5;">))) </span><span style="color:#89ddff;">|| !</span><span style="color:#7aa2f7;">bucket</span><span style="color:#89ddff;">-&gt;</span><span style="color:#7aa2f7;">IsOccupied</span><span style="color:#9abdf5;">())</span><span style="color:#89ddff;">;
+</span></code></pre>
+<pre data-lang="cpp" style="background-color:#1d1f29;color:#afbad4;" class="language-cpp "><code class="language-cpp" data-lang="cpp"><span>bucket </span><span style="color:#89ddff;">= </span><span style="color:#7aa2f7;">FindBucket</span><span style="color:#9abdf5;">(</span><span style="color:#7aa2f7;">key</span><span style="color:#9abdf5;">)</span><span style="color:#89ddff;">;
+</span><span style="color:#bb9af7;">if </span><span style="color:#9abdf5;">(</span><span>bucket </span><span style="color:#bb9af7;">!= </span><span style="color:#ff9e64;">NULL</span><span style="color:#9abdf5;">) </span><span style="color:#0db9d7;">assert</span><span style="color:#9abdf5;">(</span><span style="color:#89ddff;">!</span><span style="color:#7aa2f7;">bucket</span><span style="color:#89ddff;">-&gt;</span><span style="color:#7aa2f7;">IsOccupied</span><span style="color:#9abdf5;">())</span><span style="color:#89ddff;">;
+</span></code></pre>
+</div>
+</section>
+
+
+  </main>
+  <footer>
+    blocks note
+    
+    
+    
+  </footer>
+</body>

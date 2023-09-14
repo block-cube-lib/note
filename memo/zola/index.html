@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<head>
+  <title>
+    
+      Zola - blocks note
+    
+  </title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" type="text/css" href="https://block-cube-lib.github.io/note/style.css">
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700&family=Source+Code+Pro:ital,wght@0,400;0,500;0,700;1,400;1,500;1,700&display=swap" rel="stylesheet">
+</head>
+<body>
+  <header class="header">
+      <div class="top">
+        <a href="https:&#x2F;&#x2F;block-cube-lib.github.io&#x2F;note">blocks note</a>
+      </div>
+  </header>
+  <nav class="container">
+    <h2><a href="https:&#x2F;&#x2F;block-cube-lib.github.io&#x2F;note/categories">Categories</a></h2>
+    <ul>
+      <li><a href="https:&#x2F;&#x2F;block-cube-lib.github.io&#x2F;note/categories/book">Book</a></li>
+      <li><a href="https:&#x2F;&#x2F;block-cube-lib.github.io&#x2F;note/categories/video">Video</a></li>
+      <li><a href="https:&#x2F;&#x2F;block-cube-lib.github.io&#x2F;note/categories/conference">Conference</a></li>
+      <li><a href="https:&#x2F;&#x2F;block-cube-lib.github.io&#x2F;note/categories/memo">Memo</a></li>
+    </ul>
+    <h2><a href="https:&#x2F;&#x2F;block-cube-lib.github.io&#x2F;note/tags">Tags</a></h2>
+  </nav>
+  <main class="container">
+    
+
+<h1 class="title">
+  Zola
+</h1>
+<section class="update_history">
+  <table>
+    <tr>
+      <td>
+  <span class = "date">2023&#x2F;09&#x2F;14 10:08</span>
+</td>
+      <td>作成</td>
+    </tr>
+    
+  </table>
+</section>
+<section class="published_at">
+  <table>
+    
+    
+  </table>
+</section>
+<div>
+  categories: 
+<span class = "categories">
+  
+  
+<span class = "categories-label"><a href="https://block-cube-lib.github.io/note/categories/memo/">Memo</a></span>
+
+  
+</span>
+
+</div>
+<div>
+  tags: 
+<span class = "tags">
+  
+  
+<span class = "tags-label"><a href="https://block-cube-lib.github.io/note/tags/tera/">Tera</a></span>
+
+  
+  
+<span class = "tags-label"><a href="https://block-cube-lib.github.io/note/tags/zola/">Zola</a></span>
+
+  
+</span>
+
+</div>
+<section class="links">
+  
+</section>
+<section class="page">
+  <aside>
+    
+<ul>
+   
+  <li><a href="#rinku">リンク</a></li>
+  <ul>
+    
+  </ul>
+   
+  <li><a href="#memo">Memo</a></li>
+  <ul>
+     
+    <li><a href="#bian-shu-cun-zai-tietuku">変数存在チェック</a></li>
+    <ul>
+      
+    </ul>
+     
+    <li><a href="#for">for</a></li>
+    <ul>
+      
+    </ul>
+     
+    <li><a href="#mu-ci">目次</a></li>
+    <ul>
+      
+    </ul>
+    
+  </ul>
+  
+</ul>
+
+  </aside>
+  <div class="page-content"><h1 id="rinku">リンク</h1>
+<ul>
+<li><a href="https://www.getzola.org/">公式サイト</a></li>
+<li><a href="https://www.getzola.org/documentation/getting-started/overview/">ドキュメント</a></li>
+<li><a href="https://github.com/getzola/zola">リポジトリ</a> </li>
+<li><a href="https://keats.github.io/tera/docs/">Tera ドキュメント</a></li>
+<li><a href="https://github.com/Keats/tera">Tera リポジトリ</a></li>
+</ul>
+<h1 id="memo">Memo</h1>
+<h2 id="bian-shu-cun-zai-tietuku">変数存在チェック</h2>
+<pre data-lang="html" style="background-color:#1d1f29;color:#afbad4;" class="language-html "><code class="language-html" data-lang="html"><span style="color:#9aa5ce;">{{ if page.extra.value }}
+</span><span style="color:#9aa5ce;">    </span><span style="font-style:italic;color:#444b6a;">&lt;!-- page.extra.valueが存在するときの処理 --&gt;
+</span><span style="color:#9aa5ce;">    </span><span style="font-style:italic;color:#444b6a;">&lt;!-- page.extra.valueがbool型の場合は存在するかつtrueのときに通る --&gt;
+</span><span style="color:#9aa5ce;">{{ endif }}
+</span></code></pre>
+<h2 id="for">for</h2>
+<pre data-lang="html" style="background-color:#1d1f29;color:#afbad4;" class="language-html "><code class="language-html" data-lang="html"><span style="color:#9aa5ce;">{% for item in page.extra.items %}
+</span><span style="color:#9aa5ce;">    {{ item.name }}
+</span><span style="color:#9aa5ce;">{% endfor %}
+</span></code></pre>
+<h2 id="mu-ci">目次</h2>
+<p><code>page.tocs</code>で取得可能</p>
+<pre data-lang="html" style="background-color:#1d1f29;color:#afbad4;" class="language-html "><code class="language-html" data-lang="html"><span style="font-style:italic;color:#444b6a;">&lt;!-- 1階層目の目次 --&gt;
+</span><span style="color:#ba3c97;">&lt;</span><span style="color:#f7768e;">ul</span><span style="color:#ba3c97;">&gt;
+</span><span style="color:#9aa5ce;">  {% for toc1 in page.tocs %} 
+</span><span style="color:#9aa5ce;">  </span><span style="color:#ba3c97;">&lt;</span><span style="color:#f7768e;">li</span><span style="color:#ba3c97;">&gt;&lt;</span><span style="color:#f7768e;">a </span><span style="color:#bb9af7;">href</span><span style="color:#89ddff;">=&quot;</span><span style="color:#9ece6a;">#{{ toc1.id }}</span><span style="color:#89ddff;">&quot;</span><span style="color:#ba3c97;">&gt;</span><span style="color:#9aa5ce;">{{ toc1.title }}</span><span style="color:#ba3c97;">&lt;/</span><span style="color:#f7768e;">a</span><span style="color:#ba3c97;">&gt;&lt;/</span><span style="color:#f7768e;">li</span><span style="color:#ba3c97;">&gt;
+</span><span style="color:#9aa5ce;">  {% endfor %}
+</span><span style="color:#ba3c97;">&lt;/</span><span style="color:#f7768e;">ul</span><span style="color:#ba3c97;">&gt;
+</span></code></pre>
+</div>
+</section>
+
+
+  </main>
+  <footer>
+    blocks note
+    
+    
+    
+  </footer>
+</body>

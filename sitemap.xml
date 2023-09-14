@@ -75,6 +75,10 @@
         <lastmod>2023-01-04</lastmod>
     </url>
     <url>
+        <loc>https://block-cube-lib.github.io/note/memo/zola/</loc>
+        <lastmod>2023-09-14T10:08:30+09:00</lastmod>
+    </url>
+    <url>
         <loc>https://block-cube-lib.github.io/note/tags/</loc>
     </url>
     <url>
@@ -126,6 +130,9 @@
         <loc>https://block-cube-lib.github.io/note/tags/sqlite3/</loc>
     </url>
     <url>
+        <loc>https://block-cube-lib.github.io/note/tags/tera/</loc>
+    </url>
+    <url>
         <loc>https://block-cube-lib.github.io/note/tags/unity/</loc>
     </url>
     <url>
@@ -133,6 +140,9 @@
     </url>
     <url>
         <loc>https://block-cube-lib.github.io/note/tags/vulkan/</loc>
+    </url>
+    <url>
+        <loc>https://block-cube-lib.github.io/note/tags/zola/</loc>
     </url>
     <url>
         <loc>https://block-cube-lib.github.io/note/video/unity-2023-1-awaitable/</loc>

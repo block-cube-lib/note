@@ -46,6 +46,16 @@
       <td>作成</td>
     </tr>
     
+    
+    <tr>
+      <td>
+  <span class = "date">2023&#x2F;09&#x2F;24 08:44</span>
+</td>
+      <td class="update_history_content"><p>出力例追加</p>
+</td>
+    </tr>
+    
+    
   </table>
 </section>
 <section class="published_at">
@@ -111,6 +121,41 @@
     <ul>
       
     </ul>
+     
+    <li><a href="#yi-xia-chu-li-jie-guo-que-ren-yong">以下出力結果確認用</a></li>
+    <ul>
+      
+      <li><a href="#tong-chang">通常</a></li>
+      <ul>
+        
+      </ul>
+      
+      <li><a href="#xing-fan-hao-fu-ki">行番号付き</a></li>
+      <ul>
+        
+      </ul>
+      
+      <li><a href="#xing-hairaitofu-ki">行ハイライト付き</a></li>
+      <ul>
+        
+      </ul>
+      
+      <li><a href="#xing-fan-hao-tohairaitofu-ki">行番号とハイライト付き</a></li>
+      <ul>
+        
+      </ul>
+      
+      <li><a href="#xing-fan-hao-nokai-shi-wei-zhi-wozhi-ding">行番号の開始位置を指定</a></li>
+      <ul>
+        
+      </ul>
+      
+      <li><a href="#xing-fan-hao-nokai-shi-wei-zhi-wozhi-ding-tohairaitofu-ki">行番号の開始位置を指定とハイライト付き</a></li>
+      <ul>
+        
+      </ul>
+      
+    </ul>
     
   </ul>
   
@@ -146,6 +191,73 @@
 </span><span style="color:#9aa5ce;">  {% endfor %}
 </span><span style="color:#ba3c97;">&lt;/</span><span style="color:#f7768e;">ul</span><span style="color:#ba3c97;">&gt;
 </span></code></pre>
+<h2 id="yi-xia-chu-li-jie-guo-que-ren-yong">以下出力結果確認用</h2>
+<h3 id="tong-chang">通常</h3>
+<pre data-lang="md" style="background-color:#1d1f29;color:#afbad4;" class="language-md "><code class="language-md" data-lang="md"><span style="color:#89ddff;">```</span><span style="color:#e0af68;">rust
+</span><span style="color:#bb9af7;">fn </span><span style="color:#7aa2f7;">main</span><span style="color:#9abdf5;">() {
+</span><span style="color:#9abdf5;">    println!(</span><span style="color:#89ddff;">&quot;</span><span style="color:#9ece6a;">Hello, world!</span><span style="color:#89ddff;">&quot;</span><span style="color:#9abdf5;">)</span><span style="color:#89ddff;">;
+</span><span style="color:#9abdf5;">}
+</span><span style="color:#89ddff;">```
+</span></code></pre>
+<pre data-lang="rust" style="background-color:#1d1f29;color:#afbad4;" class="language-rust "><code class="language-rust" data-lang="rust"><span style="color:#bb9af7;">fn </span><span style="color:#7aa2f7;">main</span><span style="color:#9abdf5;">() {
+</span><span style="color:#9abdf5;">    println!(</span><span style="color:#89ddff;">&quot;</span><span style="color:#9ece6a;">Hello, world!</span><span style="color:#89ddff;">&quot;</span><span style="color:#9abdf5;">)</span><span style="color:#89ddff;">;
+</span><span style="color:#9abdf5;">}
+</span></code></pre>
+<h3 id="xing-fan-hao-fu-ki">行番号付き</h3>
+<pre data-lang="md" style="background-color:#1d1f29;color:#afbad4;" class="language-md "><code class="language-md" data-lang="md"><span style="color:#89ddff;">```</span><span style="color:#e0af68;">rust</span><span style="color:#9aa5ce;">,linenos
+</span><span style="color:#9aa5ce;">fn main() {
+</span><span style="color:#9aa5ce;">    println!(&quot;Hello, world!&quot;);
+</span><span style="color:#9aa5ce;">}
+</span><span style="color:#89ddff;">```
+</span></code></pre>
+<pre data-linenos data-lang="rust" style="background-color:#1d1f29;color:#afbad4;" class="language-rust "><code class="language-rust" data-lang="rust"><table><tbody><tr><td>1</td><td><span style="color:#bb9af7;">fn </span><span style="color:#7aa2f7;">main</span><span style="color:#9abdf5;">() {
+</span></td></tr><tr><td>2</td><td><span style="color:#9abdf5;">    println!(</span><span style="color:#89ddff;">&quot;</span><span style="color:#9ece6a;">Hello, world!</span><span style="color:#89ddff;">&quot;</span><span style="color:#9abdf5;">)</span><span style="color:#89ddff;">;
+</span></td></tr><tr><td>3</td><td><span style="color:#9abdf5;">}
+</span></td></tr></tbody></table></code></pre>
+<h3 id="xing-hairaitofu-ki">行ハイライト付き</h3>
+<pre data-lang="md" style="background-color:#1d1f29;color:#afbad4;" class="language-md "><code class="language-md" data-lang="md"><span style="color:#89ddff;">```</span><span style="color:#e0af68;">rust</span><span style="color:#9aa5ce;">,hl_lines=2
+</span><span style="color:#9aa5ce;">fn main() {
+</span><span style="color:#9aa5ce;">    println!(&quot;Hello, world!&quot;);
+</span><span style="color:#9aa5ce;">}
+</span><span style="color:#89ddff;">```
+</span></code></pre>
+<pre data-lang="rust" style="background-color:#1d1f29;color:#afbad4;" class="language-rust "><code class="language-rust" data-lang="rust"><span style="color:#bb9af7;">fn </span><span style="color:#7aa2f7;">main</span><span style="color:#9abdf5;">() {
+</span><mark style="background-color:#33467c;"><span style="color:#9abdf5;">    println!(</span><span style="color:#89ddff;">&quot;</span><span style="color:#9ece6a;">Hello, world!</span><span style="color:#89ddff;">&quot;</span><span style="color:#9abdf5;">)</span><span style="color:#89ddff;">;
+</span></mark><span style="color:#9abdf5;">}
+</span></code></pre>
+<h3 id="xing-fan-hao-tohairaitofu-ki">行番号とハイライト付き</h3>
+<pre data-lang="md" style="background-color:#1d1f29;color:#afbad4;" class="language-md "><code class="language-md" data-lang="md"><span style="color:#89ddff;">```</span><span style="color:#e0af68;">rust</span><span style="color:#9aa5ce;">,linenos,hl_lines=2
+</span><span style="color:#9aa5ce;">fn main() {
+</span><span style="color:#9aa5ce;">    println!(&quot;Hello, world!&quot;);
+</span><span style="color:#9aa5ce;">}
+</span><span style="color:#89ddff;">```
+</span></code></pre>
+<pre data-linenos data-lang="rust" style="background-color:#1d1f29;color:#afbad4;" class="language-rust "><code class="language-rust" data-lang="rust"><table><tbody><tr><td>1</td><td><span style="color:#bb9af7;">fn </span><span style="color:#7aa2f7;">main</span><span style="color:#9abdf5;">() {
+</span></td></tr><tr><td><mark style="background-color:#33467c;">2</mark></td><td><mark style="background-color:#33467c;"><span style="color:#9abdf5;">    println!(</span><span style="color:#89ddff;">&quot;</span><span style="color:#9ece6a;">Hello, world!</span><span style="color:#89ddff;">&quot;</span><span style="color:#9abdf5;">)</span><span style="color:#89ddff;">;
+</span></mark></td></tr><tr><td>3</td><td><span style="color:#9abdf5;">}
+</span></td></tr></tbody></table></code></pre>
+<h3 id="xing-fan-hao-nokai-shi-wei-zhi-wozhi-ding">行番号の開始位置を指定</h3>
+<pre data-lang="md" style="background-color:#1d1f29;color:#afbad4;" class="language-md "><code class="language-md" data-lang="md"><span style="color:#89ddff;">```</span><span style="color:#e0af68;">rust</span><span style="color:#9aa5ce;">,linenos,linenostart=10
+</span><span style="color:#9aa5ce;">fn main() {
+</span><span style="color:#9aa5ce;">    println!(&quot;Hello, world!&quot;);
+</span><span style="color:#9aa5ce;">}
+</span><span style="color:#89ddff;">```
+</span></code></pre>
+<pre data-linenos data-lang="rust" style="background-color:#1d1f29;color:#afbad4;" class="language-rust "><code class="language-rust" data-lang="rust"><table><tbody><tr><td>10</td><td><span style="color:#bb9af7;">fn </span><span style="color:#7aa2f7;">main</span><span style="color:#9abdf5;">() {
+</span></td></tr><tr><td>11</td><td><span style="color:#9abdf5;">    println!(</span><span style="color:#89ddff;">&quot;</span><span style="color:#9ece6a;">Hello, world!</span><span style="color:#89ddff;">&quot;</span><span style="color:#9abdf5;">)</span><span style="color:#89ddff;">;
+</span></td></tr><tr><td>12</td><td><span style="color:#9abdf5;">}
+</span></td></tr></tbody></table></code></pre>
+<h3 id="xing-fan-hao-nokai-shi-wei-zhi-wozhi-ding-tohairaitofu-ki">行番号の開始位置を指定とハイライト付き</h3>
+<pre data-lang="md" style="background-color:#1d1f29;color:#afbad4;" class="language-md "><code class="language-md" data-lang="md"><span style="color:#89ddff;">```</span><span style="color:#e0af68;">rust</span><span style="color:#9aa5ce;">,linenos,linenostart=10,hl_lines=2
+</span><span style="color:#9aa5ce;">fn main() {
+</span><span style="color:#9aa5ce;">    println!(&quot;Hello, world!&quot;);
+</span><span style="color:#9aa5ce;">}
+</span><span style="color:#89ddff;">```
+</span></code></pre>
+<pre data-linenos data-lang="rust" style="background-color:#1d1f29;color:#afbad4;" class="language-rust "><code class="language-rust" data-lang="rust"><table><tbody><tr><td>10</td><td><span style="color:#bb9af7;">fn </span><span style="color:#7aa2f7;">main</span><span style="color:#9abdf5;">() {
+</span></td></tr><tr><td><mark style="background-color:#33467c;">11</mark></td><td><mark style="background-color:#33467c;"><span style="color:#9abdf5;">    println!(</span><span style="color:#89ddff;">&quot;</span><span style="color:#9ece6a;">Hello, world!</span><span style="color:#89ddff;">&quot;</span><span style="color:#9abdf5;">)</span><span style="color:#89ddff;">;
+</span></mark></td></tr><tr><td>12</td><td><span style="color:#9abdf5;">}
+</span></td></tr></tbody></table></code></pre>
 </div>
 </section>
     

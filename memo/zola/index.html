@@ -55,6 +55,14 @@
 </td>
     </tr>
     
+    <tr>
+      <td>
+  <span class = "date">2023&#x2F;09&#x2F;26 14:42</span>
+</td>
+      <td class="update_history_content"><p>出力例追加</p>
+</td>
+    </tr>
+    
     
   </table>
 </section>
@@ -118,6 +126,11 @@
     </ul>
      
     <li><a href="#mu-ci">目次</a></li>
+    <ul>
+      
+    </ul>
+     
+    <li><a href="#burotukunozhong-deguan-shu-woshi-yong-suru">{% %} ブロックの中で関数を使用する</a></li>
     <ul>
       
     </ul>
@@ -190,6 +203,10 @@
 </span><span style="color:#9aa5ce;">  </span><span style="color:#ba3c97;">&lt;</span><span style="color:#f7768e;">li</span><span style="color:#ba3c97;">&gt;&lt;</span><span style="color:#f7768e;">a </span><span style="color:#bb9af7;">href</span><span style="color:#89ddff;">=&quot;</span><span style="color:#9ece6a;">#{{ toc1.id }}</span><span style="color:#89ddff;">&quot;</span><span style="color:#ba3c97;">&gt;</span><span style="color:#9aa5ce;">{{ toc1.title }}</span><span style="color:#ba3c97;">&lt;/</span><span style="color:#f7768e;">a</span><span style="color:#ba3c97;">&gt;&lt;/</span><span style="color:#f7768e;">li</span><span style="color:#ba3c97;">&gt;
 </span><span style="color:#9aa5ce;">  {% endfor %}
 </span><span style="color:#ba3c97;">&lt;/</span><span style="color:#f7768e;">ul</span><span style="color:#ba3c97;">&gt;
+</span></code></pre>
+<h2 id="burotukunozhong-deguan-shu-woshi-yong-suru">{% %} ブロックの中で関数を使用する</h2>
+<p><code>{{</code>,<code>}}</code>で囲む必要はない</p>
+<pre data-lang="html" style="background-color:#1d1f29;color:#afbad4;" class="language-html "><code class="language-html" data-lang="html"><span style="color:#9aa5ce;">{% if current_url and current_url | trim_end_matches(pat=&quot;/&quot;) == config.base_url %}
 </span></code></pre>
 <h2 id="yi-xia-chu-li-jie-guo-que-ren-yong">以下出力結果確認用</h2>
 <h3 id="tong-chang">通常</h3>

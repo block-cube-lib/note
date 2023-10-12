@@ -100,6 +100,61 @@
     
   </ul>
    
+  <li><a href="#8-gemuruputoriarutaimusimiyuresiyon">8 ゲームループとリアルタイムシミュレーション</a></li>
+  <ul>
+     
+    <li><a href="#1-rendaringurupu">1 レンダリングループ</a></li>
+    <ul>
+      
+    </ul>
+     
+    <li><a href="#2-gemurupu">2 ゲームループ</a></li>
+    <ul>
+      
+    </ul>
+     
+    <li><a href="#3-gemurupunoakitekutiyasutairu">3 ゲームループのアーキテクチャスタイル</a></li>
+    <ul>
+      
+      <li><a href="#1-windowsmetuseziponpu">1 Windowsメッセージポンプ</a></li>
+      <ul>
+        
+      </ul>
+      
+      <li><a href="#2-korubatukuqu-dong-huremuwaku">2 コールバック駆動フレームワーク</a></li>
+      <ul>
+        
+      </ul>
+      
+      <li><a href="#3-ibentowoshi-tutageng-xin">3 イベントを使った更新</a></li>
+      <ul>
+        
+      </ul>
+      
+    </ul>
+     
+    <li><a href="#4-chou-xiang-de-nashi-jian-zhou">4 抽象的な時間軸</a></li>
+    <ul>
+      
+    </ul>
+     
+    <li><a href="#5-shi-jian-noji-ce-tochu-li">5 時間の計測と処理</a></li>
+    <ul>
+      
+      <li><a href="#3-gao-fen-jie-neng-taimaderiarutaimuwoji-ce-suru">3 高分解能タイマーでリアルタイムを計測する</a></li>
+      <ul>
+        
+        <li><a href="#1-gao-fen-jie-neng-kurotukunodorihuto">1 高分解能クロックのドリフト</a></li>
+        <ul>
+          
+        </ul>
+        
+      </ul>
+      
+    </ul>
+    
+  </ul>
+   
   <li><a href="#11-rendaringuenzin">11 レンダリングエンジン</a></li>
   <ul>
      
@@ -135,6 +190,30 @@
 <p>非同期入出力処理のあいだで優先度が異なってくる。<br />
 例えばテクスチャ読み込みよりもオーディオデータの次のバッファをロードするほうが明らかに優先度が高くなる。<br />
 優先度の高い入出力リクエストをデッドラインに間に合わせるように、優先度の低いリクエストを一時的に停止できる必要がある。</p>
+<h1 id="8-gemuruputoriarutaimusimiyuresiyon">8 ゲームループとリアルタイムシミュレーション</h1>
+<h2 id="1-rendaringurupu">1 レンダリングループ</h2>
+<p>Windows PCなどで行われている一部を再描画するのは<strong>無効矩形</strong>という手法。<br />
+それに対しゲームは全体を再描画する、これを<strong>レンダリングループ</strong>と呼ぶことがある。</p>
+<h2 id="2-gemurupu">2 ゲームループ</h2>
+<p>昔のゲームはFPSの制御なし。そもそもCPUが遅い。<br />
+ゲームループの考えかたは同じ。初期化してループの中で更新してレンダリング。</p>
+<h2 id="3-gemurupunoakitekutiyasutairu">3 ゲームループのアーキテクチャスタイル</h2>
+<h3 id="1-windowsmetuseziponpu">1 Windowsメッセージポンプ</h3>
+<h3 id="2-korubatukuqu-dong-huremuwaku">2 コールバック駆動フレームワーク</h3>
+<p>フレームワークの<code>OnInittialized</code>や<code>OnFinalize</code>などにイベントをひっかけたり、クラスを継承して拡張したりする方式。<br />
+OGREレンダリングエンジンが後者。</p>
+<h3 id="3-ibentowoshi-tutageng-xin">3 イベントを使った更新</h3>
+<p>キー入力などのイベントに対してリスナーを登録するようなもの</p>
+<h2 id="4-chou-xiang-de-nashi-jian-zhou">4 抽象的な時間軸</h2>
+<h2 id="5-shi-jian-noji-ce-tochu-li">5 時間の計測と処理</h2>
+<h3 id="3-gao-fen-jie-neng-taimaderiarutaimuwoji-ce-suru">3 高分解能タイマーでリアルタイムを計測する</h3>
+<p><code>Pentiumプロセッサ</code>であれば高分解能タイマーの分解能は1/3億=0。333ナノ秒。</p>
+<h4 id="1-gao-fen-jie-neng-kurotukunodorihuto">1 高分解能クロックのドリフト</h4>
+<blockquote>
+<p>一部のマルチコアプロセッサでは、高分解能タイマーは各コアで独立しており、ばらばらにドリフトすることがありうる（というか、実際起っている）。
+また、別々のコアで取得した絶対タイマーの読み取り値を比較しようとすると、デルタ時間がマイナス値になるなど、おかしな結果になることもある。</p>
+</blockquote>
+<p>こわい</p>
 <h1 id="11-rendaringuenzin">11 レンダリングエンジン</h1>
 <h2 id="4">4</h2>
 <h3 id="5-ganmabu-zheng">5 ガンマ補正</h3>
